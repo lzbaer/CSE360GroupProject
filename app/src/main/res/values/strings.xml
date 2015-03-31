@@ -1,0 +1,5 @@
+<resources>
+    <string name="app_name">medipal</string>
+    <string name="plus_sign_out">\"Sign Out\"</string>
+    <string name="plus_disconnect">\"Disconnect from Google Plus\"</string>
+</resources>
