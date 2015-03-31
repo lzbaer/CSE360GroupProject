@@ -1,8 +1,17 @@
-To test app:
-1. Start android studio and run app on device
+READ ENTIRE DOCUMENT BEFORE PROCEEDING
+
+~INSTALLATION~
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+To test app w/ ADB:
+1. Start android studio
+2. Choose from menu: File > Import Project
+3. Import "medipal_2"
+4. Run app on device by clicking green "play" arrow
+5. Select active connected device or emulator
 
 OR
 
+To test app without ADB: 
 1. go to medipal_2/app
 2. install app-debug.apk to device
 3. test app
@@ -20,6 +29,9 @@ INSTALLATION INSTRUCT
 
 6. It will ask you whether to install this app or not. Click Yes or OK.
 
+
+~IMPORTANT TEST CASE INFO DO READ:~
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 USERNAME AND PASSWORD FOR TEST CASE
 username: user@test.com
 password: login
