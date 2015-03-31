@@ -1,4 +1,4 @@
-To dest app:
+To test app:
 1. Start android studio and run app on device
 
 OR
