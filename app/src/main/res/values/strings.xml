@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">Medipal</string>
+    <string name="hello_world">Hello world!</string>
+    <string name="action_settings">Settings</string>
+    <string name="title_activity_login">login</string>
+    <string name="title_activity_doctor_splash">DoctorSplash</string>
+    <string name="title_activity_doctor_alerts">DoctorAlerts</string>
+    <string name="title_activity_doctor_patients_list">DoctorPatientsList</string>
+    <string name="title_activity_patient_splash">PatientSplash</string>
+    <string name="title_activity_patient_enter_symptoms">PatientEnterSymptoms</string>
+    <string name="title_activity_patient_info_page">PatientInfoPage</string>
+    <string name="title_activity_doctor_view_patient_info_page">DoctorViewPatientInfoPage</string>
+    <string name="title_activity_patient_edit_info_page">PatientEditInfoPage</string>
+    <string name="title_activity_sign_up">SignUp</string>
+
+</resources>
