@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.medipal_new" >
+    package="com.medipal" >
 
     <application
         android:allowBackup="true"
@@ -17,19 +17,76 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".LogNew"
-            android:launchMode="singleTop"
-            android:label="@string/title_activity_log_new" >
+            android:name=".Login"
+            android:label="@string/title_activity_login"
+            android:parentActivityName=".MainActivity" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.medipal.MainActivity" />
         </activity>
         <activity
-            android:name=".ViewPatient"
-            android:launchMode="singleTop"
-            android:label="@string/title_activity_view_patient" >
+            android:name=".DoctorSplash"
+            android:label="@string/title_activity_doctor_splash"
+            android:parentActivityName=".Login" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.medipal.Login" />
         </activity>
         <activity
-            android:name=".LoginScreen"
-            android:launchMode="singleTop"
-            android:label="@string/title_activity_login_screen" >
+            android:name=".DoctorAlerts"
+            android:label="@string/title_activity_doctor_alerts"
+            android:parentActivityName=".DoctorSplash" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.medipal.DoctorSplash" />
+        </activity>
+        <activity
+            android:name=".DoctorPatientsList"
+            android:label="@string/title_activity_doctor_patients_list" >
+            android:parentActivityName=".DoctorSplash" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.medipal.DoctorSplash" />
+        </activity>
+        <activity
+            android:name=".PatientSplash"
+            android:label="@string/title_activity_patient_splash"
+            android:parentActivityName=".Login" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.medipal.Login" />
+        </activity>
+        <activity
+            android:name=".PatientEnterSymptoms"
+            android:label="@string/title_activity_patient_enter_symptoms"
+            android:parentActivityName=".PatientSplash" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.medipal.PatientSplash" />
+        </activity>
+        <activity
+            android:name=".PatientInfoPage"
+            android:label="@string/title_activity_patient_info_page"
+            android:parentActivityName=".PatientSplash" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.medipal.PatientSplash" />
+        </activity>
+        <activity
+            android:name=".DoctorViewPatientInfoPage"
+            android:label="@string/title_activity_doctor_view_patient_info_page" >
+        </activity>
+        <activity
+            android:name=".PatientEditInfoPage"
+            android:label="@string/title_activity_patient_edit_info_page" >
+        </activity>
+        <activity
+            android:name=".SignUp"
+            android:label="@string/title_activity_sign_up"
+            android:parentActivityName=".Login" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.medipal.Login" />
         </activity>
     </application>
 

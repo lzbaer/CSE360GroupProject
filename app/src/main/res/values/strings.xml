@@ -4,33 +4,15 @@
     <string name="app_name">Medipal</string>
     <string name="hello_world">Hello world!</string>
     <string name="action_settings">Settings</string>
-    <string name="title_activity_view_patient">View Patient Records</string>
-    <string name="title_activity_log_new">Add New Entry</string>
-
-    <!-- strings related to log_new -->
-    <string name="name_hint">Patient Name</string>
-    <string name="pain">Pain</string>
-    <string name="fatigue">Fatigue (lack of energy)</string>
-    <string name="drowsiness">Drowsiness (feeling sleepy)</string>
-    <string name="nausea">Nausea</string>
-    <string name="appetite">Lack of Appetite</string>
-    <string name="breath">Shortness of Breath</string>
-    <string name="depression">Depression (feeling depressed)</string>
-    <string name="anxiety">Anxiety (feeling nervous)</string>
-    <string name="well_being">Wellbeing (overall feeling)</string>
-    <string name="send_log">Send</string>
-    <string name="log_new">Log New</string>
-    <string name="view_data">View Patient Data</string>
-    <string name="title_activity_login_screen">Welcome, Patient!</string>
-
-    <!-- strings related to login screen -->
-    <string name="prompt_email">Email Address</string>
-    <string name="prompt_password">Password</string>
-    <string name="action_sign_in_short">Sign In</string>
-    <string name="action_sign_in">Sign In</string>
-    <string name="error_incorrect_password">Username or password incorrect!</string>
-    <string name="error_invalid_email">Username or password incorrect!</string>
-    <string name="error_field_required">No email was entered!</string>
-    <string name="error_invalid_password">No password was entered!</string>
+    <string name="title_activity_login">login</string>
+    <string name="title_activity_doctor_splash">DoctorSplash</string>
+    <string name="title_activity_doctor_alerts">DoctorAlerts</string>
+    <string name="title_activity_doctor_patients_list">DoctorPatientsList</string>
+    <string name="title_activity_patient_splash">PatientSplash</string>
+    <string name="title_activity_patient_enter_symptoms">PatientEnterSymptoms</string>
+    <string name="title_activity_patient_info_page">PatientInfoPage</string>
+    <string name="title_activity_doctor_view_patient_info_page">DoctorViewPatientInfoPage</string>
+    <string name="title_activity_patient_edit_info_page">PatientEditInfoPage</string>
+    <string name="title_activity_sign_up">SignUp</string>
 
 </resources>
