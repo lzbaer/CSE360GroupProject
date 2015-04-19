@@ -14,5 +14,9 @@
     <string name="title_activity_doctor_view_patient_info_page">DoctorViewPatientInfoPage</string>
     <string name="title_activity_patient_edit_info_page">PatientEditInfoPage</string>
     <string name="title_activity_sign_up">SignUp</string>
+    <string name="welcomeStartUp">Welcome!</string>
+    <string name="splashDescription">splash</string>
+    <string name="login">Login</string>
+    <string name="signup">Sign up!</string>
 
 </resources>
