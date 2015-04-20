@@ -9,7 +9,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceLarge"
-        android:text="@string/welcomeStartUp"
+        android:text="@string/welcome_start_up"
         android:id="@+id/welcomeText"
         android:layout_centerVertical="true"
         android:layout_centerHorizontal="true" />
@@ -21,7 +21,7 @@
         android:layout_above="@+id/welcomeText"
         android:layout_centerHorizontal="true"
         android:src="@drawable/ic_splash"
-        android:contentDescription="@string/splashDescription" />
+        android:contentDescription="@string/splash_description" />
 
     <Button
         android:layout_width="fill_parent"
@@ -35,7 +35,7 @@
     <Button
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:text="@string/signup"
+        android:text="@string/sign_up"
         android:id="@+id/signUpButton"
         android:layout_below="@+id/loginButton"
         android:layout_centerHorizontal="true"
