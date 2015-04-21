@@ -40,6 +40,8 @@
     <string name="depression">Depression (feeling depressed)</string>
     <string name="anxiety">Anxiety (feeling nervous)</string>
     <string name="well_being">Wellbeing (overall feeling)</string>
+    <string name="send_survey_button">Submit New Survey</string>
+    <string name="submit_survey_button">Submit Survey</string>
 
 
 </resources>
