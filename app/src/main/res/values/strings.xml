@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">Medipal</string>
+    <string name="action_settings">Settings</string>
+    <string name="title_activity_login">Sign into Medipal</string>
+    <string name="title_activity_doctor_splash">Welcome, DoctorName!</string>
+    <string name="title_activity_doctor_alerts">View Alerts</string>
+    <string name="title_activity_doctor_patients_list">Patients Under Your Supervision:</string>
+    <string name="title_activity_patient_splash">Welcome, PatientName!</string>
+    <string name="title_activity_patient_enter_symptoms">Create a New Log</string>
+    <string name="title_activity_patient_info_page">Personal Information:</string>
+    <string name="title_activity_doctor_view_patient_info_page">PatientName\'s Personal Information:</string>
+    <string name="title_activity_patient_edit_info_page">Update Personal Information:</string>
+    <string name="title_activity_sign_up">Sign Up for Medipal</string>
+
+    <!-- Welcome screen -->
+    <string name="welcome_start_up">Welcome!</string>
+    <string name="splash_description">splash logo</string>
+    <string name="login">Login</string>
+    <string name="sign_up">Sign up!</string>
+
+    <!-- Login screen  -->
+    <string name="prompt_email">Email Address</string>
+    <string name="prompt_password">Password</string>
+    <string name="action_sign_in_short">Sign In</string>
+    <string name="action_sign_in">Sign In</string>
+    <string name="error_incorrect_password">Username or password incorrect!</string>
+    <string name="error_invalid_email">Username or password incorrect!</string>
+    <string name="error_field_required">No email was entered!</string>
+    <string name="error_invalid_password">Invalid password!</string>
+
+    <!-- Patient enter info screen -->
+    <string name="pain">Pain</string>
+    <string name="fatigue">Fatigue (lack of energy)</string>
+    <string name="drowsiness">Drowsiness (feeling sleepy)</string>
+    <string name="nausea">Nausea</string>
+    <string name="appetite">Lack of Appetite</string>
+    <string name="breath">Shortness of Breath</string>
+    <string name="depression">Depression (feeling depressed)</string>
+    <string name="anxiety">Anxiety (feeling nervous)</string>
+    <string name="well_being">Wellbeing (overall feeling)</string>
+
+
+</resources>
