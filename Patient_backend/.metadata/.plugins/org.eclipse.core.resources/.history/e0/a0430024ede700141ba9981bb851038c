@@ -8,7 +8,7 @@ public class Patient extends User {
 	private String name;
 	private String password;
 	private int patientID;
-	//private Doctor myDoc;
+	private int doctorID;
 	private Vector <Patient_Record> pr;
 	
 	
@@ -17,10 +17,9 @@ public class Patient extends User {
 	{
 		super(n,p);
 		patientID = p_id;
-		//myDoc = findDoctor(d_id);
+		doctorID = d_id;
 		pr = new Vector <Patient_Record> (1);
 	}
-	
 	
 	public Vector<Patient_Record> getRecord()
 	{
