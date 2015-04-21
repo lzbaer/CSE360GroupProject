@@ -1,0 +1,32 @@
+package patient_backend;
+
+public class Patient_Record {
+
+	private int[] symptomRate = new int[9];
+	private int date;
+	private int urgency;
+	
+	public Patient_Record(int[] sr)
+	{
+		for (int i = 0; i < 9; i++)
+		{
+			symptomRate[i] = sr[i];
+		}
+		
+		date = -1;
+		urgency = -1;
+	}
+	
+	public boolean setUrgency()
+	{
+		if (urgency != -1)
+			return false;
+		else
+		{
+			//ANKIT DO THIS
+			return true;
+		}
+		
+	}
+	
+}
