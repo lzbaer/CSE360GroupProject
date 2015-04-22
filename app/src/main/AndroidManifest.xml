@@ -88,6 +88,30 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.medipal.Login" />
         </activity>
+        <activity
+            android:name=".Database"
+            android:label="@string/title_activity_database"
+            android:parentActivityName=".MainActivity" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.medipal.MainActivity" />
+        </activity>
+        <activity
+            android:name=".DatabaseHelper"
+            android:label="@string/title_activity_database_helper"
+            android:parentActivityName=".MainActivity" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.medipal.MainActivity" />
+        </activity>
+        <activity
+            android:name=".message"
+            android:label="@string/title_activity_message"
+            android:parentActivityName=".MainActivity" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.medipal.MainActivity" />
+        </activity>
     </application>
 
 </manifest>

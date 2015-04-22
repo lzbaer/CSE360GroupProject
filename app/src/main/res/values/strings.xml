@@ -42,6 +42,11 @@
     <string name="well_being">Wellbeing (overall feeling)</string>
     <string name="send_survey_button">Submit New Survey</string>
     <string name="submit_survey_button">Submit Survey</string>
+    <string name="title_activity_database">Database</string>
+
+    <string name="hello_world">Hello world!</string>
+    <string name="title_activity_database_helper">DatabaseHelper</string>
+    <string name="title_activity_message">message</string>
 
 
 </resources>
