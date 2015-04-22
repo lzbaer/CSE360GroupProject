@@ -10,15 +10,15 @@
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:text="@string/welcome_start_up"
-        android:id="@+id/welcomeText"
+        android:id="@+id/welcome_text"
         android:layout_centerVertical="true"
         android:layout_centerHorizontal="true" />
 
     <ImageView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/splashArt"
-        android:layout_above="@+id/welcomeText"
+        android:id="@+id/splash_art"
+        android:layout_above="@+id/welcome_text"
         android:layout_centerHorizontal="true"
         android:src="@drawable/ic_splash"
         android:contentDescription="@string/splash_description" />
@@ -27,8 +27,8 @@
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:text="@string/login"
-        android:id="@+id/loginButton"
-        android:layout_below="@+id/welcomeText"
+        android:id="@+id/login_button"
+        android:layout_below="@+id/welcome_text"
         android:layout_centerHorizontal="true"
         android:onClick="startLogin"/>
 
@@ -36,8 +36,8 @@
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:text="@string/sign_up"
-        android:id="@+id/signUpButton"
-        android:layout_below="@+id/loginButton"
+        android:id="@+id/sign_up_button"
+        android:layout_below="@+id/login_button"
         android:layout_centerHorizontal="true"
         android:onClick="startSignUp"/>
 

@@ -15,7 +15,7 @@
     <string name="title_activity_sign_up">Sign Up for Medipal</string>
 
     <!-- Welcome screen -->
-    <string name="welcome_start_up">Welcome!</string>
+    <string name="welcome_start_up">Welcome to Medipal!</string>
     <string name="splash_description">splash logo</string>
     <string name="login">Login</string>
     <string name="sign_up">Sign up!</string>
@@ -39,7 +39,7 @@
     <string name="breath">Shortness of Breath</string>
     <string name="depression">Depression (feeling depressed)</string>
     <string name="anxiety">Anxiety (feeling nervous)</string>
-    <string name="well_being">Wellbeing (overall feeling)</string>
+    <string name="well_being">Wellbeing (10 is best overall feeling)</string>
     <string name="send_survey_button">Submit New Survey</string>
     <string name="submit_survey_button">Submit Survey</string>
 
