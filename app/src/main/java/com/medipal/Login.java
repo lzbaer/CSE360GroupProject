@@ -126,6 +126,7 @@ public class Login extends ActionBarActivity {
                 intent = new Intent(this, DoctorSplash.class);
             }
             if (intent != null) {
+                Toast.makeText(getBaseContext(), getString(R.string.login_successful), Toast.LENGTH_SHORT).show();
                 startActivity(intent);
             }else{
                 Toast.makeText(getBaseContext(), getString(R.string.error_incorrect_login), Toast.LENGTH_SHORT).show();

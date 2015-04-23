@@ -11,7 +11,9 @@
         android:layout_height="fill_parent"
         android:layout_alignParentTop="true"
         android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true">
+        android:layout_alignParentEnd="true"
+        android:animateLayoutChanges="true">
+
 
         <ScrollView
             android:layout_width="match_parent"
@@ -23,7 +25,8 @@
             <LinearLayout
                 android:orientation="vertical"
                 android:layout_width="fill_parent"
-                android:layout_height="wrap_content">
+                android:layout_height="wrap_content"
+                android:nestedScrollingEnabled="true">
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -83,7 +86,8 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:gravity="center_horizontal"
-                    android:orientation="horizontal">
+                    android:orientation="horizontal"
+                    android:id="@+id/radio_group">
 
                     <RadioButton
                         android:layout_width="0dp"
@@ -105,7 +109,8 @@
                 <LinearLayout
                     android:orientation="horizontal"
                     android:layout_width="fill_parent"
-                    android:layout_height="wrap_content">
+                    android:layout_height="wrap_content"
+                    android:id="@+id/patient_radio_button_layout">
 
                     <EditText
                         android:layout_width="0dp"
@@ -126,6 +131,21 @@
                         android:padding="5dp"
                         android:contentDescription="@string/help_button_description" />
                 </LinearLayout>
+
+            <LinearLayout
+                android:orientation="horizontal"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/doctor_radio_button_layout">
+
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textAppearance="?android:attr/textAppearanceSmall"
+                    android:text="@string/doctor_id_creation_prompt"
+                    android:id="@+id/doctor_id_creation_prompt" />
+            </LinearLayout>
 
             </LinearLayout>
         </ScrollView>

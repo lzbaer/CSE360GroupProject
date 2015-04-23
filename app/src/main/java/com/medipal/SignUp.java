@@ -1,8 +1,11 @@
 package com.medipal;
 
+import android.animation.Animator;
+import android.animation.AnimatorListenerAdapter;
 import android.content.Intent;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
+import android.text.Layout;
 import android.text.TextUtils;
 import android.view.KeyEvent;
 import android.view.Menu;
@@ -13,7 +16,9 @@ import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.LinearLayout;
 import android.widget.RadioButton;
+import android.widget.RadioGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -25,14 +30,23 @@ public class SignUp extends ActionBarActivity {
     private EditText mLastNameView;
     private AutoCompleteTextView mEmailView;
     private EditText mPasswordView;
-    private RadioButton mPatient;
-    private RadioButton mDoctor;
+    private RadioGroup mRadioGroup;
+    private RadioButton mPatientRadioButton;
+    private RadioButton mDoctorRadioButton;
+    private LinearLayout mPatientRadioButtonLayout;
+    private LinearLayout mDoctorRadioButtonLayout;
     private EditText mDoctorIdView;
     private ImageButton mDoctorIdHelpButton;
     private View mProgressView;
     private View mEmailLoginFormView;
     private View mSignOutButtons;
     private View mLoginFormView;
+
+    //set up animation
+    private int mAnimationDuration;
+
+    public SignUp() {
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -53,6 +67,81 @@ public class SignUp extends ActionBarActivity {
                     return true;
                 }
                 return false;
+            }
+        });
+
+        // Retrieve and cache the system's default "short" animation time.
+        mAnimationDuration = getResources().getInteger(
+                android.R.integer.config_mediumAnimTime);
+
+        //create radio buttons, patient is default specified by XML
+        mRadioGroup = (RadioGroup) findViewById(R.id.radio_group);
+        mPatientRadioButton = (RadioButton) findViewById(R.id.patient_radio_button);
+        mDoctorRadioButton = (RadioButton) findViewById(R.id.doctor_radio_button);
+
+        //create both options and hide doctor's version by default
+        mPatientRadioButtonLayout = (LinearLayout) findViewById(R.id.patient_radio_button_layout);
+        mDoctorRadioButtonLayout = (LinearLayout) findViewById(R.id.doctor_radio_button_layout);
+        mDoctorRadioButtonLayout.setVisibility(LinearLayout.GONE);
+
+        //set action listener for radiogroup
+        mRadioGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(RadioGroup group, int checkedId) {
+                switch(checkedId) {
+                    case R.id.patient_radio_button:
+                        //crossfade between layouts
+                        mPatientRadioButtonLayout.setAlpha(0f);
+                        mPatientRadioButtonLayout.setVisibility(LinearLayout.VISIBLE);
+
+                        // Animate the patient view to 100% opacity, and clear any animation
+                        // listener set on the view.
+                        mPatientRadioButtonLayout.animate()
+                                .alpha(1f)
+                                .setDuration(mAnimationDuration)
+                                .setListener(null);
+
+                        // Animate the doctor view to 0% opacity. After the animation ends,
+                        // set its visibility to GONE as an optimization step (it won't
+                        // participate in layout passes, etc.)
+                        mDoctorRadioButtonLayout.animate()
+                                .alpha(0f)
+                                .setDuration(mAnimationDuration)
+                                .setListener(new AnimatorListenerAdapter() {
+                                    @Override
+                                    public void onAnimationEnd(Animator animation) {
+                                        mDoctorRadioButtonLayout.setVisibility(View.GONE);
+                                    }
+                                });
+                        break;
+                    case R.id.doctor_radio_button:
+                        // Animate the doctor view to 0% opacity. After the animation ends,
+                        // set its visibility to GONE as an optimization step (it won't
+                        // participate in layout passes, etc.)
+                        mPatientRadioButtonLayout.animate()
+                                .alpha(0f)
+                                .setDuration(mAnimationDuration)
+                                .setListener(new AnimatorListenerAdapter() {
+                                    @Override
+                                    public void onAnimationEnd(Animator animation) {
+                                        mPatientRadioButtonLayout.setVisibility(View.GONE);
+                                    }
+                                });
+
+                        //crossfade between layouts
+                        mDoctorRadioButtonLayout.setAlpha(0f);
+                        mDoctorRadioButtonLayout.setVisibility(LinearLayout.VISIBLE);
+
+                        // Animate the patient view to 100% opacity, and clear any animation
+                        // listener set on the view.
+                        mDoctorRadioButtonLayout.animate()
+                                .alpha(1f)
+                                .setDuration(mAnimationDuration)
+                                .setListener(null);
+                        break;
+                    default:
+                        throw (new Error(getString(R.string.error_checked_id_invalid)){});
+                }
             }
         });
 
@@ -146,7 +235,7 @@ public class SignUp extends ActionBarActivity {
             mDoctorIdView.setError(getString(R.string.error_invalid_doctor_id));
             focusView = mDoctorIdView;
             cancel = true;
-        }else if(Math.random()>.5){  //check if doctor does not exists in database
+        }else if(!checkIfDoctorExistsById(doctorId)){  //check if doctor does not exists in database
             mDoctorIdView.setError(getString(R.string.error_incorrect_doctor_id));
             focusView = mDoctorIdView;
             cancel = true;
@@ -160,15 +249,37 @@ public class SignUp extends ActionBarActivity {
             //TODO LEARN HOW TO USE MAUTH OBJECT TO AUTHORIZE USERS
             if(Math.random()>.5) //if server could not  be reached
             {
-                Toast.makeText(getBaseContext(), "Sign up failed!", Toast.LENGTH_SHORT).show();
-            } else if(Math.random()>.5) { //if user already is registered
+                Toast.makeText(getBaseContext(), getString(R.string.error_sign_up_failed), Toast.LENGTH_SHORT).show();
+            } else if(checkIfUserExistsByEmail(email)) { //if user already is registered
                 Toast.makeText(getBaseContext(), getString(R.string.error_email_exists), Toast.LENGTH_SHORT).show();
             } else { //if sign up was successful
-                Toast.makeText(getBaseContext(), "Sign up successful!", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getBaseContext(), getString(R.string.sign_up_successful), Toast.LENGTH_SHORT).show();
                 this.finish();
             }
 
         }
+    }
+
+    private boolean checkIfUserExistsByEmail(String email) {
+        boolean found = false;
+        String dummyData[] ={"patient@email","doctor@email"};
+        for(int i = 0; i<dummyData.length;i++)
+        {
+            if(dummyData[i].equals(email))
+                found = true;
+        }
+        return found;
+    }
+
+    private boolean checkIfDoctorExistsById(int doctorId) {
+        boolean found = false;
+        int dummyData[] ={1,2,3,4,5};
+        for(int i = 0; i<dummyData.length;i++)
+        {
+            if(dummyData[i]==doctorId)
+                found = true;
+        }
+        return found;
     }
 
     private boolean isEmailValid(String email) {
@@ -199,10 +310,6 @@ public class SignUp extends ActionBarActivity {
         }
 
         return super.onOptionsItemSelected(item);
-    }
-
-    public void displayDoctorIdHelp(){
-
     }
 
 }

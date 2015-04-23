@@ -34,10 +34,10 @@ public class PatientEnterSymptoms extends ActionBarActivity {
         //if(ControllerClass.sendQuery(insertQuery))
 
         if(Math.random()>.5){
-            Toast.makeText(getBaseContext(), "Survey submitted!", Toast.LENGTH_SHORT).show();
+            Toast.makeText(getBaseContext(), getString(R.string.survey_submitted), Toast.LENGTH_SHORT).show();
             this.finish();
         }else
-            Toast.makeText(getBaseContext(), "Survey submission failed!", Toast.LENGTH_SHORT).show();
+            Toast.makeText(getBaseContext(), getString(R.string.error_survey_submission_failed), Toast.LENGTH_SHORT).show();
 
         System.out.println(insertQuery);
     }
