@@ -13,6 +13,7 @@ import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 
 public class Login extends ActionBarActivity {
@@ -106,7 +107,7 @@ public class Login extends ActionBarActivity {
             focusView = mPasswordView;
             cancel = true;
         } else if (!isPasswordValid(password)) {
-            mPasswordView.setError(getString(R.string.error_incorrect_password));
+            mPasswordView.setError(getString(R.string.error_invalid_password));
             focusView = mPasswordView;
             cancel = true;
         }
@@ -126,6 +127,8 @@ public class Login extends ActionBarActivity {
             }
             if (intent != null) {
                 startActivity(intent);
+            }else{
+                Toast.makeText(getBaseContext(), getString(R.string.error_incorrect_login), Toast.LENGTH_SHORT).show();
             }
         }
     }

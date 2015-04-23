@@ -7,6 +7,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.SeekBar;
+import android.widget.Toast;
 
 
 public class PatientEnterSymptoms extends ActionBarActivity {
@@ -31,8 +32,12 @@ public class PatientEnterSymptoms extends ActionBarActivity {
         insertQuery+= getValuesFromSurveyFields();
         //TODO CONNECT TO SERVER, GET PATIENT'S ID, AND SEND COMMAND
         //if(ControllerClass.sendQuery(insertQuery))
-            //TODO SHOW DIALOGUE "ENTRY SUCCESSFULLY LOGGED" AND RETURN TO PARENT ACTIVITY
-        //TODO ELSE: SHOW "ERROR, CANNOT CONNECT TO SERVER" OR SOMETHING LIKE THAT
+
+        if(Math.random()>.5){
+            Toast.makeText(getBaseContext(), "Survey submitted!", Toast.LENGTH_SHORT).show();
+            this.finish();
+        }else
+            Toast.makeText(getBaseContext(), "Survey submission failed!", Toast.LENGTH_SHORT).show();
 
         System.out.println(insertQuery);
     }
@@ -54,9 +59,9 @@ public class PatientEnterSymptoms extends ActionBarActivity {
         symptoms[++i] = 100 - ((SeekBar) findViewById(R.id.well_being_bar)).getProgress();
 
         //concatenate values into a string
-        for(i=0;i<symptoms.length;i++){
-            symptoms[i]=Math.round(symptoms[i]/10); //convert from double 0-100 to 0-10
-            values+=(int)symptoms[i]+" "; //TODO ADD PROPER DELIMITER FOR SQL SYNTAX
+        for(i=0;i<symptoms.length;i++) {
+            symptoms[i] = Math.round(symptoms[i] / 10); //convert from double 0-100 to 0-10
+            values += (int) symptoms[i] + ", "; //TODO ADD PROPER DELIMITER FOR SQL SYNTAX
         }
 
         return values;

@@ -25,8 +25,8 @@
     <string name="prompt_password">Password</string>
     <string name="action_sign_in_short">Sign In</string>
     <string name="action_sign_in">Sign In</string>
-    <string name="error_incorrect_password">Username or password incorrect!</string>
-    <string name="error_invalid_email">Username or password incorrect!</string>
+    <string name="error_incorrect_login">Username or password incorrect!</string>
+    <string name="error_invalid_email">Email is not valid!</string>
     <string name="error_field_required">No email was entered!</string>
     <string name="error_invalid_password">Invalid password!</string>
 
@@ -42,6 +42,18 @@
     <string name="well_being">Wellbeing (overall feeling)</string>
     <string name="send_survey_button">Submit New Survey</string>
     <string name="submit_survey_button">Submit Survey</string>
+
+    <!-- Sign up screen -->
+    <string name="first_name">First Name</string>
+    <string name="last_name">Last Name</string>
+    <string name="doctor_patient_prompt">I am a:</string>
+    <string name="doctor_id_prompt">Doctor ID</string>
+    <string name="first_name_prompt">Please enter your first name:</string>
+    <string name="last_name_prompt">Please enter your last name:</string>
+    <string name="help_button_description">help button</string>
+    <string name="error_email_exists">An account already exists with that email!</string>
+    <string name="error_incorrect_doctor_id">This doctor does not exist!</string>
+    <string name="error_invalid_doctor_id">Invalid Doctor ID!</string>
 
 
 </resources>
