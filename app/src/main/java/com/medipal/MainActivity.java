@@ -38,15 +38,8 @@ public class MainActivity extends ActionBarActivity {
 
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_logout) {
-            //log out activity
             userId="";
-            this.finish();//try activityname.finish instead of this
-            Intent intent = new Intent(Intent.ACTION_MAIN);
-            intent.addCategory(Intent.CATEGORY_HOME);
-            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-            intent.putExtra("userId",userId);
-            startActivity(intent);
-            return true;
+            Toast.makeText(getBaseContext(), getString(R.string.logout_successful), Toast.LENGTH_SHORT).show();
         }
 
         return super.onOptionsItemSelected(item);

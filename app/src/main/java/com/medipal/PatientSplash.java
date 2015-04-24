@@ -72,14 +72,9 @@ public class PatientSplash extends ActionBarActivity {
 
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_logout) {
-            //log out activity
-            this.finish();//try activityname.finish instead of this
-            Intent intent = new Intent(Intent.ACTION_MAIN);
-            intent.addCategory(Intent.CATEGORY_HOME);
-            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-            startActivity(intent);
             return true;
         }
+
 
         return super.onOptionsItemSelected(item);
     }
