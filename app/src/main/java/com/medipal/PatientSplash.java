@@ -67,13 +67,13 @@ public class PatientSplash extends ActionBarActivity {
     public void attemptSendSurvey()
     {
         Intent intent = new Intent(this, PatientEnterSymptoms.class);
-        intent.putExtra(userId,userId);
+        intent.putExtra("userId",userId);
         startActivity(intent);
     }
 
     private void attemptUpdateInfo() {
         Intent intent = new Intent(this, PatientEditInfoPage.class);
-        intent.putExtra(userId,userId);
+        intent.putExtra("userId",userId);
         startActivity(intent);
     }
 

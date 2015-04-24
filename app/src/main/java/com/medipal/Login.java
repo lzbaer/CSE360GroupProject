@@ -18,20 +18,6 @@ import android.widget.Toast;
 
 public class Login extends ActionBarActivity {
 
-    /**
-     * A dummy authentication store containing known user names and passwords.
-     * TODO: remove after connecting to a real authentication system.
-     */
-    private static final String[] DUMMY_CREDENTIALS = new String[]{
-            "foo@example.com:hello", "bar@example.com:world",
-            "michaelsenpatrick@gmail.com:blondie", "user@test.com:password"
-    };
-
-    /**
-     * Keep track of the login task to ensure we can cancel it if requested.
-     */
-    //private UserLoginTask mAuthTask = null;
-
     //UI elements
     private AutoCompleteTextView mEmailView;
     private EditText mPasswordView;
@@ -72,8 +58,6 @@ public class Login extends ActionBarActivity {
 
     public void attemptLogin()
     {
-        //TODO
-        //TODO remove this login system which does not check for credentials
         // Reset errors.
         mEmailView.setError(null);
         mPasswordView.setError(null);
@@ -82,7 +66,6 @@ public class Login extends ActionBarActivity {
         String userId = null;
         String email = mEmailView.getText().toString();
         String password = mPasswordView.getText().toString();
-        System.out.print(email);
         boolean cancel = false;
         View focusView = null;
 
@@ -112,36 +95,39 @@ public class Login extends ActionBarActivity {
             // There was an error; don't attempt login and focus the first
             // form field with an error.
             focusView.requestFocus();
-        } else {
-            //TODO get objectId from parse
-            userId = "getObjectId";
-            //start splash page for either doctor or patient
-            Intent intent = null;
-            if (email.compareToIgnoreCase("patient")==0) {
-                intent = new Intent(this, PatientSplash.class);
-            } else if (email.compareToIgnoreCase("doctor")==0) {
-                intent = new Intent(this, DoctorSplash.class);
-            }
-            if (intent != null) {
-                Toast.makeText(getBaseContext(), getString(R.string.login_successful), Toast.LENGTH_SHORT).show();
-                intent.putExtra(userId,userId);
-                startActivity(intent);
-            }else{
-                Toast.makeText(getBaseContext(), getString(R.string.error_incorrect_login), Toast.LENGTH_SHORT).show();
-            }
+        } else if(checkCredentials(email, password)){
+
+            //get userId
+            userId = getUserIdByEmail(email);
+
+            //send user id to parent activity
+            Intent returnIntent = new Intent();
+            returnIntent.putExtra("userId",userId);
+            this.setResult(RESULT_OK,returnIntent);
+
+            //state successful login and return to main activity
+            Toast.makeText(getBaseContext(), getString(R.string.login_successful), Toast.LENGTH_SHORT).show();
+            System.out.println("Login.finish()");
+            this.finish();
+
+        }else{
+            Toast.makeText(getBaseContext(), getString(R.string.error_incorrect_login), Toast.LENGTH_SHORT).show();
         }
     }
 
+    private boolean checkCredentials(String email, String password) {
+        boolean found = false;
+        //*TODO check if the user entered the correct username and password
+            found = true; //remove this sample return value after method is finished
+        return found;
+    }
+
     private boolean isEmailValid(String email) {
-        //TODO: Replace this with your own logic
-        return true;
-        //return email.contains("@") && email.length() < 255;
+        return email.contains("@") && email.length() < 256;
     }
 
     private boolean isPasswordValid(String password) {
-        //TODO: Replace this with your own logic
-        return true;
-        //return password.length() > 4 && password.length() < 255;
+        return password.length() > 4 && password.length() < 256;
     }
 
     @Override
@@ -164,5 +150,12 @@ public class Login extends ActionBarActivity {
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    public String getUserIdByEmail(String email) {
+        String userIdReturn="";
+        //TODO access database and get the user id
+            userIdReturn="xE3ag4yuSf"; //remove this sample return value after method is implemented
+        return userIdReturn;
     }
 }

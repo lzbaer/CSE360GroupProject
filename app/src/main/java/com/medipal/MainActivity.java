@@ -6,15 +6,17 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-
+import android.widget.Toast;
 
 public class MainActivity extends ActionBarActivity {
 
+    private String userId;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        userId = "";
 
     }
 
@@ -45,13 +47,67 @@ public class MainActivity extends ActionBarActivity {
 
     public void startLogin(View view)
     {
-        Intent intent = new Intent(this, Login.class);
-        startActivity(intent);
+        //if no user is currently logged in
+        if(userId.length()==0)
+        {
+            Intent intent = new Intent(this, Login.class);
+            startActivityForResult(intent, 1);
+        }else{
+            //otherwise a user is logged in, go to splash page
+            this.startUserSplashPage();
+        }
     }
 
     public void startSignUp(View view)
     {
-        Intent intent = new Intent(this, SignUp.class);
+        //if no user is currently logged in
+        if(userId.length()==0)
+        {
+            Intent intent = new Intent(this, SignUp.class);
+            startActivity(intent);
+        }else{
+            //otherwise a user is logged in, do not go to sign up
+            Toast.makeText(getBaseContext(), getString(R.string.error_signed_in_sign_up), Toast.LENGTH_SHORT).show();
+        }
+    }
+
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        System.out.println("MainActivity.onActivityResult");
+        if (requestCode == 1) {
+            if(resultCode == RESULT_OK){
+                userId=data.getStringExtra("userId");
+                System.out.println(userId);
+            }
+            if (resultCode == RESULT_CANCELED) {
+
+            }
+        }
+
+        this.startUserSplashPage();
+
+    }//onActivityResult
+
+    private void startUserSplashPage()
+    {
+        System.out.println("MainActivity.startUserSplashPage");
+
+        Intent intent = null;
+
+        boolean doctor = isUserDoctor(userId);
+        if(doctor)
+        {
+            intent = new Intent(this, DoctorSplash.class);
+        }else{
+            intent = new Intent(this, PatientSplash.class);
+        }
+        intent.putExtra("userId",userId);
         startActivity(intent);
     }
+
+    private boolean isUserDoctor(String userId) {
+        //TODO check if user is patient or doctor
+        return false;
+    }
+
+
 }
