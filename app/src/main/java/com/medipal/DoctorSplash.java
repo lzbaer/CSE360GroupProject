@@ -1,5 +1,6 @@
 package com.medipal;
 
+import android.app.ActionBar;
 import android.content.Intent;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
@@ -19,6 +20,12 @@ public class DoctorSplash extends ActionBarActivity {
         Intent intent = this.getIntent();
         userId = intent.getStringExtra(userId);
 
+        //set title bar
+        String lastName="";
+        lastName = getFirstNameByUserId(userId);
+        android.support.v7.app.ActionBar actionBar = getSupportActionBar();
+        actionBar.setTitle("Welcome, Dr." + lastName + "!");
+
     }
 
 
@@ -29,6 +36,13 @@ public class DoctorSplash extends ActionBarActivity {
         return true;
     }
 
+    private String getFirstNameByUserId(String userId) {
+        String lastName = "Doctor";
+        //TODO get the first name from the database
+             lastName = "Michaelsen"; //replace with logic
+        return lastName;
+    }
+
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         // Handle action bar item clicks here. The action bar will
@@ -37,7 +51,15 @@ public class DoctorSplash extends ActionBarActivity {
         int id = item.getItemId();
 
         //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
+        if (id == R.id.action_logout) {
+            //log out activity
+            userId="";
+            this.finish();//try activityname.finish instead of this
+            Intent intent = new Intent(Intent.ACTION_MAIN);
+            intent.addCategory(Intent.CATEGORY_HOME);
+            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+            intent.putExtra("userId",userId);
+            startActivity(intent);
             return true;
         }
 

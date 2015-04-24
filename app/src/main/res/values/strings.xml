@@ -2,7 +2,7 @@
 <resources>
 
     <string name="app_name">Medipal</string>
-    <string name="action_settings">Settings</string>
+    <string name="action_logout">Logout</string>
     <string name="title_activity_login">Sign into Medipal</string>
     <string name="title_activity_doctor_splash">Welcome, DoctorName!</string>
     <string name="title_activity_doctor_alerts">View Alerts</string>
