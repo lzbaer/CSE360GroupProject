@@ -75,10 +75,18 @@
         <activity
             android:name=".DoctorViewPatientInfoPage"
             android:label="@string/title_activity_doctor_view_patient_info_page" >
+            android:parentActivityName=".DoctorPatientList" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.medipal.DoctorPatientsList" />
         </activity>
         <activity
             android:name=".PatientEditInfoPage"
             android:label="@string/title_activity_patient_edit_info_page" >
+            android:parentActivityName=".PatientSplash" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.medipal.PatientSplash" />
         </activity>
         <activity
             android:name=".SignUp"

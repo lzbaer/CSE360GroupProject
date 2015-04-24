@@ -1,5 +1,6 @@
 package com.medipal;
 
+import android.content.Intent;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.view.Menu;
@@ -12,10 +13,16 @@ import android.widget.Toast;
 
 public class PatientEnterSymptoms extends ActionBarActivity {
 
+    private String userId;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_patient_enter_symptoms);
+
+        //get userId from parent activity
+        Intent intent = this.getIntent();
+        userId = intent.getStringExtra(userId);
 
         //create button and listener for submit survey
         Button mSubmitSurvey = (Button) findViewById(R.id.submit_survey_button);

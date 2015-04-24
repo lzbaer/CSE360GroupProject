@@ -164,7 +164,7 @@ public class SignUp extends ActionBarActivity {
             @Override
             public void onClick(View view) {
                 mDoctorIdView.requestFocus();
-                ((EditText)mDoctorIdView).setError("Enter the Doctor ID provided by your medical professional", null);
+                ((EditText)mDoctorIdView).setError(getString(R.string.doctor_id_tool_tip), null);
                 }
         });
     }

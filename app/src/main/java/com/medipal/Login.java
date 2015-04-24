@@ -79,16 +79,12 @@ public class Login extends ActionBarActivity {
         mPasswordView.setError(null);
 
         // Store values at the time of the login attempt.
+        String userId = null;
         String email = mEmailView.getText().toString();
         String password = mPasswordView.getText().toString();
         System.out.print(email);
         boolean cancel = false;
         View focusView = null;
-
-        //TODO FINISH IMPLEMENTING PASSWORD/EMAIL VALIDITY CHECK
-        //CURRENTLY ONLY CHECKS FOR EMPTY EMAIL, NEEDS TO CHECK FOR
-        //INVALID EMAIL, EMPTY PASSWORD, INVALID PASSWORD
-
 
         // Check for a valid email address.
         if (TextUtils.isEmpty(email)) {
@@ -117,7 +113,8 @@ public class Login extends ActionBarActivity {
             // form field with an error.
             focusView.requestFocus();
         } else {
-            //TODO LEARN HOW TO USE MAUTH OBJECT TO AUTHORIZE USERS
+            //TODO get objectId from parse
+            userId = "getObjectId";
             //start splash page for either doctor or patient
             Intent intent = null;
             if (email.compareToIgnoreCase("patient")==0) {
@@ -127,6 +124,7 @@ public class Login extends ActionBarActivity {
             }
             if (intent != null) {
                 Toast.makeText(getBaseContext(), getString(R.string.login_successful), Toast.LENGTH_SHORT).show();
+                intent.putExtra(userId,userId);
                 startActivity(intent);
             }else{
                 Toast.makeText(getBaseContext(), getString(R.string.error_incorrect_login), Toast.LENGTH_SHORT).show();

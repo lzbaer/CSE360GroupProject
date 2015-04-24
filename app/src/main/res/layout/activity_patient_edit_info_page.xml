@@ -3,7 +3,147 @@
     android:layout_height="match_parent" android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
-    android:paddingBottom="@dimen/activity_vertical_margin"
-    tools:context="com.medipal.PatientEditInfoPage">
+    android:paddingBottom="@dimen/activity_vertical_margin" tools:context="com.medipal.SignUp">
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
+        android:animateLayoutChanges="true">
+
+
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:fillViewport="true"
+            android:id="@+id/edit_info_scroll_view">
+
+            <LinearLayout
+                android:orientation="vertical"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:nestedScrollingEnabled="true"
+                android:id="@+id/linear_layout">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textAppearance="?android:attr/textAppearanceLarge"
+                    android:text="@string/account_information_header"
+                    android:id="@+id/account_information_header"/>
+
+            <LinearLayout
+                android:orientation="horizontal"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="@string/current_name"
+                    android:nestedScrollingEnabled="true"
+                    android:id="@+id/current_name"
+                    android:textAppearance="?android:attr/textAppearanceMedium"/>
+
+                <TextView
+                    android:text="@string/placeholder_text"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:id="@+id/full_name"
+                    android:clickable="false"
+                    android:layout_alignParentTop="true"
+                    android:layout_alignParentLeft="true"
+                    android:layout_alignParentStart="true"  android:textIsSelectable="false"
+                    android:focusable="false"       android:singleLine="false"
+                    android:textAppearance="?android:attr/textAppearanceMedium" />
+
+                </LinearLayout>
+
+            <LinearLayout
+                android:orientation="horizontal"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="@string/current_email"
+                    android:id="@+id/current_email"
+                    android:textAppearance="?android:attr/textAppearanceMedium"/>
+
+                <TextView android:id="@+id/email"
+                    android:text="@string/placeholder_text"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:nestedScrollingEnabled="true"
+                    android:layout_below="@+id/last_name"
+                    android:layout_alignParentLeft="true"
+                    android:layout_alignParentStart="true"
+                    android:textAppearance="?android:attr/textAppearanceMedium" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:orientation="horizontal"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content">
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_weight="1"
+                        android:text="@string/doctor_id_edit_prompt"
+                        android:layout_height="wrap_content"
+                        android:textAppearance="?android:attr/textAppearanceMedium" />
+
+                    <EditText
+                        android:layout_width="0dp"
+                        android:layout_weight="1"
+                        android:layout_height="wrap_content"
+                        android:hint="@string/doctor_id_prompt"
+                        android:inputType="number"
+                        android:ems="10"
+                        android:id="@+id/doctor_id" />
+
+                    <ImageButton
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/doctor_id_help_button"
+                        android:layout_gravity="center_vertical"
+                        android:src="@drawable/help"
+                        android:background="@null"
+                        android:padding="5dp"
+                        android:contentDescription="@string/help_button_description" />
+                </LinearLayout>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textAppearance="?android:attr/textAppearanceMedium"
+                    android:text="@string/known_conditions_prompt"
+                    android:id="@+id/known_conditions_prompt" />
+
+                <Spinner
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/condition_spinner"
+                    android:spinnerMode="dropdown" />
+
+            </LinearLayout>
+        </ScrollView>
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal|top"
+            android:text="@string/update_information_button"
+            android:id="@+id/update_info_button"/>
+
+    </LinearLayout>
 
 </RelativeLayout>

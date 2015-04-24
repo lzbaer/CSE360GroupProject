@@ -15,7 +15,7 @@
     <string name="title_activity_sign_up">Sign Up for Medipal</string>
 
     <!-- Welcome screen -->
-    <string name="welcome_start_up">Welcome!</string>
+    <string name="welcome_start_up">Welcome to Medipal!</string>
     <string name="splash_description">splash logo</string>
     <string name="login">Login</string>
     <string name="sign_up">Sign up!</string>
@@ -32,7 +32,7 @@
     <string name="login_successful">Login successful!</string>
 
     <!-- Patient enter symptoms screen -->
-    <string name="pain">Pain</string>
+    <string name="pain">Pain (10 is worst possible pain)</string>
     <string name="fatigue">Fatigue (lack of energy)</string>
     <string name="drowsiness">Drowsiness (feeling sleepy)</string>
     <string name="nausea">Nausea</string>
@@ -40,7 +40,7 @@
     <string name="breath">Shortness of Breath</string>
     <string name="depression">Depression (feeling depressed)</string>
     <string name="anxiety">Anxiety (feeling nervous)</string>
-    <string name="well_being">Wellbeing (overall feeling)</string>
+    <string name="well_being">Wellbeing (10 is best possible overall feeling)</string>
     <string name="send_survey_button">Submit New Survey</string>
     <string name="submit_survey_button">Submit Survey</string>
     <string name="survey_submitted">Survey submitted!</string>
@@ -60,5 +60,38 @@
     <string name="error_checked_id_invalid">err:checked_id_invalid: Radio button selection not possible!</string>
     <string name="sign_up_successful">Sign up successful!</string>
     <string name="error_sign_up_failed">Sign up failed!</string>
+    <string name="account_information_header">Account Information:</string>
+    <string name="doctor_id_tool_tip">Enter the Doctor ID provided by your medical professional</string>
+    <string name="placeholder_text">Placeholder Text</string>
+    <string name="update_information_button">Update Information</string>
+    <string name="known_conditions_prompt">Known Conditions:</string>
+    <string name="doctor_id_edit_prompt">Doctor ID:</string>
+    <string name="current_name">Name:</string>
+    <string name="current_email">Email:</string>
+
+    <string-array name="conditions_array">
+        <item>No Condition</item>
+        <item>ALS (Lou Gehrig\'s Disease)</item>
+        <item>Alzheimer\'s Disease</item>
+        <item>Breast Cancer</item>
+        <item>Cancer</item>
+        <item>Chronic Obstructive Pulmonary Disease</item>
+        <item>Colon Cancer</item>
+        <item>Congestive Heart Failure</item>
+        <item>Dementia</item>
+        <item>Head and Neck Cancer</item>
+        <item>HIV/AIDS</item>
+        <item>Kidney Disease</item>
+        <item>Leukemia and Lymphoma</item>
+        <item>Liver Disease</item>
+        <item>Lung Cancer</item>
+        <item>Multiple Myeloma</item>
+        <item>Ovarian Cancer</item>
+        <item>Pancreatic Cancer</item>
+        <item>Parkinson\'s Disease</item>
+        <item>Prostate Cancer</item>
+        <item>Stroke</item>
+        <item>Other</item>
+    </string-array>
 
 </resources>

@@ -11,10 +11,16 @@ import android.widget.Button;
 
 public class PatientSplash extends ActionBarActivity {
 
+    private String userId;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_patient_splash);
+
+        //get userId from parent activity
+        Intent intent = this.getIntent();
+        userId = intent.getStringExtra(userId);
 
         //create button and listener for send new survey
         Button mSendSurvey = (Button) findViewById(R.id.send_survey_button);
@@ -24,8 +30,16 @@ public class PatientSplash extends ActionBarActivity {
                 attemptSendSurvey();
             }
         });
-    }
 
+        //create button and listener for send new survey
+        Button mUpdateInfo = (Button) findViewById(R.id.update_info_button);
+        mUpdateInfo.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                attemptUpdateInfo();
+            }
+        });
+    }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -53,6 +67,14 @@ public class PatientSplash extends ActionBarActivity {
     public void attemptSendSurvey()
     {
         Intent intent = new Intent(this, PatientEnterSymptoms.class);
+        intent.putExtra(userId,userId);
         startActivity(intent);
     }
+
+    private void attemptUpdateInfo() {
+        Intent intent = new Intent(this, PatientEditInfoPage.class);
+        intent.putExtra(userId,userId);
+        startActivity(intent);
+    }
+
 }
