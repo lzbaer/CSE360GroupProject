@@ -77,9 +77,19 @@ public class Login extends ActionBarActivity {
                     public void done(ParseUser user, ParseException e) {
                         if (user != null) {
                             // If user exist and authenticated, send user to Welcome.class
-                            Intent intent = new Intent(
-                                    Login.this,
-                                    PatientSplash.class);
+                            Intent intent;
+                            if(user.getBoolean("isDoctor"))
+                            {
+                                intent = new Intent(
+                                        Login.this,
+                                        DoctorSplash.class);
+
+                            }
+                            else {
+                                intent = new Intent(
+                                        Login.this,
+                                        PatientSplash.class);
+                            }
                             startActivity(intent);
                             Toast.makeText(getApplicationContext(),
                                     "Successfully Logged in",

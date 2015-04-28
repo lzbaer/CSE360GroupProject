@@ -32,6 +32,8 @@ public class MainActivity extends ActionBarActivity {
 
         ParseACL.setDefaultACL(defaultACL, true);
 
+        ParseUser.logOut();
+
 
     }
 
@@ -64,7 +66,7 @@ public class MainActivity extends ActionBarActivity {
     public void startLogin(View view)
     {
         //if no user is currently logged in
-        if(true)
+        if(ParseUser.getCurrentUser() == null)
         {
             Intent intent = new Intent(this, Login.class);
             startActivityForResult(intent, 1);
@@ -109,7 +111,8 @@ public class MainActivity extends ActionBarActivity {
 
         Intent intent = null;
 
-        boolean doctor = isUserDoctor(userId);
+        ParseUser currentUser = ParseUser.getCurrentUser();
+        boolean doctor = currentUser.getBoolean("isDoctor");
         if(doctor)
         {
             intent = new Intent(this, DoctorSplash.class);

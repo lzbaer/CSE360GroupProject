@@ -10,6 +10,8 @@ import android.widget.Button;
 import android.widget.SeekBar;
 import android.widget.Toast;
 
+import com.parse.ParseUser;
+
 
 public class PatientEnterSymptoms extends ActionBarActivity {
 
@@ -35,18 +37,11 @@ public class PatientEnterSymptoms extends ActionBarActivity {
     }
 
     private void attemptSubmitSurvey() {
-        String insertQuery = "INSERT INTO VALUES TODO:  ";
-        insertQuery+= getValuesFromSurveyFields();
-        //TODO CONNECT TO SERVER, GET PATIENT'S ID, AND SEND COMMAND
-        //if(ControllerClass.sendQuery(insertQuery))
 
-        if(Math.random()>.5){
-            Toast.makeText(getBaseContext(), getString(R.string.survey_submitted), Toast.LENGTH_SHORT).show();
-            this.finish();
-        }else
-            Toast.makeText(getBaseContext(), getString(R.string.error_survey_submission_failed), Toast.LENGTH_SHORT).show();
 
-        System.out.println(insertQuery);
+       ParseUser.getCurrentUser().put("Symptoms",getValuesFromSurveyFields());
+
+        //TODO: Go back to previous page.
     }
 
     private String getValuesFromSurveyFields() {

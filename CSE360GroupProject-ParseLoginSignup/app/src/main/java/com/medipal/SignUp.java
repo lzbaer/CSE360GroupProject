@@ -190,9 +190,17 @@ public class SignUp extends ActionBarActivity {
         boolean cancel = false;
         View focusView = null;
 
+        //Create Parse
         ParseUser user = new ParseUser();
         user.setUsername(email);
         user.setPassword(password);
+        if(doctorIdStr.length() == 0) {
+            user.put("isDoctor", true);
+        }
+        else
+        {
+            user.put("isDoctor",false);
+        }
         user.signUpInBackground(new SignUpCallback() {
             public void done(ParseException e) {
                 if (e == null) {

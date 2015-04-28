@@ -8,6 +8,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import com.parse.*;
 
 
 public class PatientSplash extends ActionBarActivity {
@@ -24,8 +25,8 @@ public class PatientSplash extends ActionBarActivity {
         userId = intent.getStringExtra(userId);
 
         //set title bar
-        String firstName="";
-        firstName = getFirstNameByUserId(userId);
+        String firstName = ParseUser.getCurrentUser().getString("First_Name");
+
         android.support.v7.app.ActionBar actionBar = getSupportActionBar();
         actionBar.setTitle("Welcome, " + firstName + "!");
 
