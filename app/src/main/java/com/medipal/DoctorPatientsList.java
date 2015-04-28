@@ -3,8 +3,13 @@ package com.medipal;
 import android.content.Intent;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
+import android.widget.BaseAdapter;
+//import com.parse.ParseQueryAdapter;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.ListView;
+
+import com.parse.ParseObject;
 
 
 public class DoctorPatientsList extends ActionBarActivity {
@@ -21,6 +26,18 @@ public class DoctorPatientsList extends ActionBarActivity {
         userId = intent.getStringExtra(userId);
 
 
+
+        /*
+        //use a layout with ListView (id: patientsListView) using custom adapater
+        ParseQueryAdapter<ParseObject> parseQueryAdapter =
+                new ParseQueryAdapter<ParseObject>(this,"Instrument");
+        parseQueryAdapter.setTextKey("name");
+        parseQueryAdapter.setImageKey("image");
+
+        //get the list reference
+        ListView patientsListView = (ListView) findViewById(R.id.patientsListView);
+        patientsListView.setAdapter(parseQueryAdapter);
+        */
     }
 
 
