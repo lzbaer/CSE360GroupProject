@@ -1,0 +1,7 @@
+package patient_backend;
+
+public class SimilarityCalculation {
+	//find average of each symptom
+	int numIllnesses = 20;
+	
+}
