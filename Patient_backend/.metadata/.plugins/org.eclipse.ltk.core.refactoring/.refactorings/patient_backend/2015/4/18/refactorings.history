@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<session version="1.0">
+<refactoring comment="Rename type &apos;patient_backend.MediPal_Control&apos; to &apos;UrgencyCalculation&apos;&#x0D;&#x0A;- Original project: &apos;patient_backend&apos;&#x0D;&#x0A;- Original element: &apos;patient_backend.MediPal_Control&apos;&#x0D;&#x0A;- Renamed element: &apos;patient_backend.UrgencyCalculation&apos;&#x0D;&#x0A;- Update references to refactored element&#x0D;&#x0A;- Update textual occurrences in comments and strings" description="Rename type &apos;MediPal_Control&apos;" flags="589830" id="org.eclipse.jdt.ui.rename.type" input="/src&lt;patient_backend{MediPal_Control.java[MediPal_Control" matchStrategy="1" name="UrgencyCalculation" qualified="false" references="true" similarDeclarations="false" stamp="1430201139939" textual="false" version="1.0"/>
+</session>

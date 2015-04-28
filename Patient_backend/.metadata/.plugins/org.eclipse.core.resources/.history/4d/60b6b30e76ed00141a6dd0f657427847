@@ -1,0 +1,100 @@
+package patient_backend;
+
+import java.util.*;
+
+public class UrgencyCalculation {
+	
+	//static variables for the past 15 Patient_Records
+	double[] symptomMeans = new double[9];
+	double[] symptomStdDev = new double[9];
+	
+	int pastRec = 15;
+	//urgency rating for current Record
+	double urgency;
+	//urgency rating per symptom for current record
+	double[] urgencySymptoms;
+	//symptoms of current record
+	double[] symptoms;
+	//2D array of past 15 Symptom Ratings
+	double[][] pastSymptomRatings;
+	
+	
+	//constructor 
+	public UrgencyCalculation(double[] symptoms)
+	{
+		urgency = -1;
+		pastSymptomRatings = new double[pastRec][9];
+		//initialize symptom urgency ratings
+		urgencySymptoms = new double[9];
+		//save symptom ratings for current record
+		for(int i = 0; i < 9; i++)
+		{
+			this.symptoms[i] = symptoms[i];
+		}
+	}
+	
+	// calculate standard deviation per symptom
+	// parameter: index of symptom to be analyzed
+	// return: void, saves past symptom mean and std dev to arrays
+	public void calcStdDevPerSymptom(int indexSymptom) {
+
+		for (int i = 0; i < pastRec; i++) {
+			for(int j = 0; j < 9; j++)
+			{
+				//fill 2-D array with past record symptom ratings
+				//pastSymptomRatings[i][j] = 
+			}
+		}
+
+		// TO CALCULATE STANDARD DEVIATION
+		double mean = 0;
+		double sum = 0;
+
+		for (int i = 0; i < num; i++) {
+			sum += pastSymptomRatings[i][indexSymptom];
+		}
+		
+		mean = sum / pastRec;
+		
+		//save past submissions mean in array
+		symptomMeans[indexSymptom] = mean;
+		
+		sum = 0;
+
+		for (int i = 0; i < pastRec; i++) {
+			sum += Math.pow(pastSymptomRatings[i][indexSymptom] - mean, 2);
+		}
+		double variance = sum / (pastRec - 1);
+
+		double stdDev = Math.sqrt(variance);
+		symptomStdDev[indexSymptom] = stdDev;
+
+	}
+
+	public double detectUrgencyPerRecord(int submission, String type) {
+		double standardDeviation = calcStdDev();
+		// Grab stdDev from Patient in real program
+		for (int i = 0; i < 9; i++)
+		{
+		
+		double meanDif = Math.abs(mean - submission); // The difference between
+														// a new submission and
+														// the current mean
+		double numStdDevs = meanDif / standardDeviation; // The number of
+															// standard
+															// deviations away
+															// the new
+															// submission is
+															// from the mean
+
+		// System.out.println("Mean: " + mean);
+		return Math.pow(2, numStdDevs); // Returns 2^(number of standard
+										// deviations away)
+	}
+	
+	public double detectUrgencyPerRecord(int[] urgencies)
+	{
+		return 0;
+	}
+	
+}
