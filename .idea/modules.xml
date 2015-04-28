@@ -4,6 +4,7 @@
     <modules>
       <module fileurl="file://$PROJECT_DIR$/CSE360GroupProject-ParseLogin.iml" filepath="$PROJECT_DIR$/CSE360GroupProject-ParseLogin.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
+      <module fileurl="file://$PROJECT_DIR$/medipal.iml" filepath="$PROJECT_DIR$/medipal.iml" />
     </modules>
   </component>
 </project>
