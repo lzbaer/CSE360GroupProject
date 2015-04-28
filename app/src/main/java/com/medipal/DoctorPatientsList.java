@@ -19,6 +19,8 @@ public class DoctorPatientsList extends ActionBarActivity {
         //get userId from parent activity
         Intent intent = this.getIntent();
         userId = intent.getStringExtra(userId);
+
+
     }
 
 

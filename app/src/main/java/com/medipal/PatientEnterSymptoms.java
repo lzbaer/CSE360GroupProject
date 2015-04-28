@@ -10,6 +10,7 @@ import android.widget.Button;
 import android.widget.SeekBar;
 import android.widget.Toast;
 
+import com.parse.ParseQuery;
 import com.parse.ParseUser;
 
 
@@ -39,11 +40,19 @@ public class PatientEnterSymptoms extends ActionBarActivity {
     private void attemptSubmitSurvey() {
 
 
-       ParseUser.getCurrentUser().put("Symptoms",getValuesFromSurveyFields());
+       ParseUser.getCurrentUser().put("Symptoms", getValuesFromSurveyFields() + ";" + ParseUser.getCurrentUser().getString("Symptoms"));
 
-        //TODO: Make a Toast
-        //TODO: Go back to previous page.
+        Toast.makeText(getApplicationContext(),
+                "Data " + ParseUser.getCurrentUser().getString("Symptoms") + " Added",
+                Toast.LENGTH_LONG).show();
+
+        //TODO: Go back a page
+
+        Toast.makeText(getApplicationContext(),
+               ParseUser.getCurrentUser().getString("Symptoms"),
+                Toast.LENGTH_LONG).show();
     }
+
 
     private String getValuesFromSurveyFields() {
         String values = "";
@@ -64,7 +73,7 @@ public class PatientEnterSymptoms extends ActionBarActivity {
         //concatenate values into a string
         for(i=0;i<symptoms.length;i++) {
             symptoms[i] = Math.round(symptoms[i] / 10); //convert from double 0-100 to 0-10
-            values += (int) symptoms[i] + ", "; //TODO ADD PROPER DELIMITER FOR SQL SYNTAX
+            values += (int) symptoms[i] + ",";
         }
 
         return values;

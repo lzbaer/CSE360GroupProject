@@ -13,6 +13,7 @@ import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.parse.ParseUser;
 
@@ -86,6 +87,10 @@ public class PatientEditInfoPage extends ActionBarActivity {
         currentUser.put("DoctorID",doctorId);
         currentUser.put("CurrentIllness",conditionPosition);
         currentUser.saveInBackground();
+
+        Toast.makeText(getApplicationContext(),
+                "Info Updated",
+                Toast.LENGTH_LONG).show();
     }
 
 

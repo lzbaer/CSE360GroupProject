@@ -30,9 +30,14 @@ public class MainActivity extends ActionBarActivity {
 
         ParseACL.setDefaultACL(defaultACL, true);
 
+
         //if the user is resuming a session
         if(ParseUser.getCurrentUser() != null)
+        {
             this.startUserSplashPage();
+        }
+
+
     }
 
 
