@@ -12,13 +12,11 @@ import com.parse.*;
 
 public class MainActivity extends ActionBarActivity {
 
-    private String userId;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        userId="";
 
         // Add your initialization code here
         Parse.initialize(this, "Vyjj2ByDhfsUI7j7c5M8NeIaJIi1TWDdh2Nt0sSB", "iGFhL69a0QKjHSLbcMgvlN942mwdBqyKb6RYgeC4");
@@ -32,9 +30,9 @@ public class MainActivity extends ActionBarActivity {
 
         ParseACL.setDefaultACL(defaultACL, true);
 
-        ParseUser.logOut();
-
-
+        //if the user is resuming a session
+        if(ParseUser.getCurrentUser() != null)
+            this.startUserSplashPage();
     }
 
 
@@ -56,7 +54,7 @@ public class MainActivity extends ActionBarActivity {
 
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_logout) {
-            userId="";
+            ParseUser.logOut();
             Toast.makeText(getBaseContext(), getString(R.string.logout_successful), Toast.LENGTH_SHORT).show();
         }
 
@@ -69,7 +67,7 @@ public class MainActivity extends ActionBarActivity {
         if(ParseUser.getCurrentUser() == null)
         {
             Intent intent = new Intent(this, Login.class);
-            startActivityForResult(intent, 1);
+            startActivity(intent);
         }else{
             //otherwise a user is logged in, go to splash page
             this.startUserSplashPage();
@@ -79,7 +77,7 @@ public class MainActivity extends ActionBarActivity {
     public void startSignUp(View view)
     {
         //if no user is currently logged in
-        if(userId.length()==0)
+        if(ParseUser.getCurrentUser() == null)
         {
             Intent intent = new Intent(this, SignUp.class);
             startActivity(intent);
@@ -88,22 +86,6 @@ public class MainActivity extends ActionBarActivity {
             Toast.makeText(getBaseContext(), getString(R.string.error_signed_in_sign_up), Toast.LENGTH_SHORT).show();
         }
     }
-
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        System.out.println("MainActivity.onActivityResult");
-        if (requestCode == 1) {
-            if(resultCode == RESULT_OK){
-                userId=data.getStringExtra("userId");
-                System.out.println(userId);
-            }
-            if (resultCode == RESULT_CANCELED) {
-
-            }
-        }
-
-        this.startUserSplashPage();
-
-    }//onActivityResult
 
     private void startUserSplashPage()
     {
@@ -119,7 +101,7 @@ public class MainActivity extends ActionBarActivity {
         }else{
             intent = new Intent(this, PatientSplash.class);
         }
-        intent.putExtra("userId",userId);
+
         startActivity(intent);
     }
 

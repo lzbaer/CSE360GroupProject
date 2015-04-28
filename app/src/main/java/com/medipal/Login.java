@@ -65,11 +65,43 @@ public class Login extends ActionBarActivity {
         mPasswordView.setError(null);
 
         // Store values at the time of the login attempt.
-        String userId = null;
         String email = mEmailView.getText().toString();
         String password = mPasswordView.getText().toString();
         boolean cancel = false;
         View focusView = null;
+
+        // Check for a valid email address, if user entered one
+        if (TextUtils.isEmpty(email)) {
+            mEmailView.setError(getString(R.string.error_field_required));
+            focusView = mEmailView;
+            cancel = true;
+        } else if (!isEmailValid(email)) {
+            mEmailView.setError(getString(R.string.error_invalid_email));
+            focusView = mEmailView;
+            cancel = true;
+        }
+
+        // Check for a valid password, if the user entered one.
+        if (TextUtils.isEmpty(password)) {
+            mPasswordView.setError(getString(R.string.error_invalid_password));
+            focusView = mPasswordView;
+            cancel = true;
+        } else if (!isPasswordValid(password)) {
+            mPasswordView.setError(getString(R.string.error_invalid_password));
+            focusView = mPasswordView;
+            cancel = true;
+        }
+
+        if (cancel) {
+            // There was an error; don't attempt login and focus the first
+            // form field with an error.
+            focusView.requestFocus();
+        } else {
+            authenticateLogin(email, password);
+        }
+    }
+
+    private void authenticateLogin(String email, String password){
 
         // Send data to Parse.com for verification
         ParseUser.logInInBackground(email, password,
@@ -92,72 +124,18 @@ public class Login extends ActionBarActivity {
                             }
                             startActivity(intent);
                             Toast.makeText(getApplicationContext(),
-                                    "Successfully Logged in",
+                                    getString(R.string.login_successful),
                                     Toast.LENGTH_LONG).show();
                             finish();
                         } else {
                             Toast.makeText(
                                     getApplicationContext(),
-                                    "No such user exist, please signup",
+                                    getString(R.string.error_incorrect_login),
                                     Toast.LENGTH_LONG).show();
                         }
                     }
                 });
 
-
-
-
-//        // Check for a valid email address.
-//        if (TextUtils.isEmpty(email)) {
-//            mEmailView.setError(getString(R.string.error_field_required));
-//            focusView = mEmailView;
-//            cancel = true;
-//        } else if (!isEmailValid(email)) {
-//            mEmailView.setError(getString(R.string.error_invalid_email));
-//            focusView = mEmailView;
-//            cancel = true;
-//        }
-//
-//        // Check for a valid password, if the user entered one.
-//        if (TextUtils.isEmpty(password)) {
-//            mPasswordView.setError(getString(R.string.error_invalid_password));
-//            focusView = mPasswordView;
-//            cancel = true;
-//        } else if (!isPasswordValid(password)) {
-//            mPasswordView.setError(getString(R.string.error_invalid_password));
-//            focusView = mPasswordView;
-//            cancel = true;
-//        }
-//
-//        if (cancel) {
-//            // There was an error; don't attempt login and focus the first
-//            // form field with an error.
-//            focusView.requestFocus();
-//        } else if(checkCredentials(email, password)){
-//
-//            //get userId
-//            userId = getUserIdByEmail(email);
-//
-//            //send user id to parent activity
-//            Intent returnIntent = new Intent();
-//            returnIntent.putExtra("userId",userId);
-//            this.setResult(RESULT_OK,returnIntent);
-//
-//            //state successful login and return to main activity
-//            Toast.makeText(getBaseContext(), getString(R.string.login_successful), Toast.LENGTH_SHORT).show();
-//            System.out.println("Login.finish()");
-//            this.finish();
-//
-//        }else{
-//            Toast.makeText(getBaseContext(), getString(R.string.error_incorrect_login), Toast.LENGTH_SHORT).show();
-//        }
-    }
-
-    private boolean checkCredentials(String email, String password) {
-        boolean found = false;
-        //*TODO check if the user entered the correct username and password
-            found = true; //remove this sample return value after method is finished
-        return found;
     }
 
     private boolean isEmailValid(String email) {
@@ -188,12 +166,5 @@ public class Login extends ActionBarActivity {
         }
 
         return super.onOptionsItemSelected(item);
-    }
-
-    public String getUserIdByEmail(String email) {
-        String userIdReturn="";
-        //TODO access database and get the user id
-            userIdReturn="xE3ag4yuSf"; //remove this sample return value after method is implemented
-        return userIdReturn;
     }
 }
