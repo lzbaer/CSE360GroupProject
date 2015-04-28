@@ -51,8 +51,7 @@ public class PatientSplash extends ActionBarActivity {
 
     private String getFirstNameByUserId(String userId) {
         String firstName="Patient";
-            //TODO get the first name from the database
-                firstName = "Patrick"; //replace with logic
+            firstName = ParseUser.getCurrentUser().getString("First_Name");
         return firstName;
     }
 

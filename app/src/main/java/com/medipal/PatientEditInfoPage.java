@@ -53,14 +53,12 @@ public class PatientEditInfoPage extends ActionBarActivity {
         spinner.setAdapter(adapter);
 
         //replace placeholder text with user information
-        //TODO get all these values from database
         String firstName = ParseUser.getCurrentUser().getString("First_Name") + " "; //add space between names
         String lastName = ParseUser.getCurrentUser().getString("Last_Name");
         String email = ParseUser.getCurrentUser().getString("username");
         String doctorId = ParseUser.getCurrentUser().getString("doctorID");
 
-
-
+        //set text fields
         mFullNameView.setText(firstName+lastName);
         mEmailView.setText(email);
         mDoctorIdView.setText(doctorId);

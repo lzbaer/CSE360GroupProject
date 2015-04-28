@@ -183,13 +183,64 @@ public class SignUp extends ActionBarActivity {
         String email = mEmailView.getText().toString();
         String password = mPasswordView.getText().toString();
         String doctorIdStr = mDoctorIdView.getText().toString();
-        int doctorId = 0;
-        if(doctorIdStr.length()>0)
-            doctorId = Integer.parseInt(doctorIdStr);
         System.out.print(email);
         boolean cancel = false;
         View focusView = null;
 
+        //check for a valid first name
+            if (TextUtils.isEmpty(first)) {
+                mFirstNameView.setError(getString(R.string.error_field_required));
+                focusView = mFirstNameView;
+                cancel = true;
+        }
+
+        //check for a valid last name
+        if (TextUtils.isEmpty(last)) {
+            mLastNameView.setError(getString(R.string.error_field_required));
+            focusView = mLastNameView;
+            cancel = true;
+        }
+
+        // Check for a valid email address.
+        if (TextUtils.isEmpty(email)) {
+            mEmailView.setError(getString(R.string.error_field_required));
+            focusView = mEmailView;
+            cancel = true;
+        } else if (!isEmailValid(email)) {
+            mEmailView.setError(getString(R.string.error_invalid_email));
+            focusView = mEmailView;
+            cancel = true;
+        }
+
+        // Check for a valid password, if the user entered one.
+        if (TextUtils.isEmpty(password)) {
+            mPasswordView.setError(getString(R.string.error_invalid_password));
+            focusView = mPasswordView;
+            cancel = true;
+        } else if (!isPasswordValid(password)) {
+            mPasswordView.setError(getString(R.string.error_invalid_password));
+            focusView = mPasswordView;
+            cancel = true;
+        }
+
+        //check for valid doctor ID
+        if (mPatientRadioButton.isChecked()&& doctorIdStr.isEmpty())
+        {
+            mDoctorIdView.setError(getString(R.string.error_invalid_doctor_id));
+            focusView = mDoctorIdView;
+            cancel = true;
+        }
+
+        if (cancel) {
+            // There was an error; don't attempt login and focus the first
+            // form field with an error.
+            focusView.requestFocus();
+        } else {
+           registerNewUser(email,password,first,last,doctorIdStr);
+        }
+    }
+
+    private void registerNewUser(String email, String password, String first, String last, String doctorIdStr){
         //Create Parse
         ParseUser user = new ParseUser();
         user.setUsername(email);
@@ -197,7 +248,7 @@ public class SignUp extends ActionBarActivity {
         user.put("First_Name",first);
         user.put("Last_Name",last);
         user.put("doctorID",doctorIdStr);
-        if(doctorIdStr.length() == 0) {
+        if(mDoctorRadioButton.isChecked()) {
             user.put("isDoctor", true);
         }
         else
@@ -209,116 +260,34 @@ public class SignUp extends ActionBarActivity {
                 if (e == null) {
                     // Show a simple Toast message upon successful registration
                     Toast.makeText(getApplicationContext(),
-                            "Successfully Signed up, please log in.",
+                            getString(R.string.sign_up_successful),
                             Toast.LENGTH_LONG).show();
+                    finish();
+                } else if(e.getCode() == ParseException.USERNAME_TAKEN){
+                    Toast.makeText(getApplicationContext(),
+                            getString(R.string.error_email_exists), Toast.LENGTH_LONG)
+                            .show();
+                } else if(e.getCode() == ParseException.CONNECTION_FAILED){
+                    Toast.makeText(getApplicationContext(),
+                            getString(R.string.error_connection_failed), Toast.LENGTH_LONG)
+                            .show();
                 } else {
                     Toast.makeText(getApplicationContext(),
-                            "Sign up Error", Toast.LENGTH_LONG)
+                            getString(R.string.error_unknown), Toast.LENGTH_LONG)
                             .show();
                 }
             }
         });
-
-
-        //TODO FINISH IMPLEMENTING PASSWORD/EMAIL VALIDITY CHECK
-        //CURRENTLY ONLY CHECKS FOR EMPTY EMAIL, NEEDS TO CHECK FOR
-        //INVALID EMAIL, EMPTY PASSWORD, INVALID PASSWORD
-
-//        //check for a valid first name
-//            if (TextUtils.isEmpty(first)) {
-//                mFirstNameView.setError(getString(R.string.error_field_required));
-//                focusView = mFirstNameView;
-//                cancel = true;
-//        }
-//
-//        //check for a valid last name
-//        if (TextUtils.isEmpty(last)) {
-//            mLastNameView.setError(getString(R.string.error_field_required));
-//            focusView = mLastNameView;
-//            cancel = true;
-//        }
-//
-//        // Check for a valid email address.
-//        if (TextUtils.isEmpty(email)) {
-//            mEmailView.setError(getString(R.string.error_field_required));
-//            focusView = mEmailView;
-//            cancel = true;
-//        } else if (!isEmailValid(email)) {
-//            mEmailView.setError(getString(R.string.error_invalid_email));
-//            focusView = mEmailView;
-//            cancel = true;
-//        }
-//
-//        // Check for a valid password, if the user entered one.
-//        if (TextUtils.isEmpty(password)) {
-//            mPasswordView.setError(getString(R.string.error_invalid_password));
-//            focusView = mPasswordView;
-//            cancel = true;
-//        } else if (!isPasswordValid(password)) {
-//            mPasswordView.setError(getString(R.string.error_invalid_password));
-//            focusView = mPasswordView;
-//            cancel = true;
-//        }
-//
-//        //check for valid doctor ID
-//        if (doctorId<=0)
-//        {
-//            mDoctorIdView.setError(getString(R.string.error_invalid_doctor_id));
-//            focusView = mDoctorIdView;
-//            cancel = true;
-//        }else if(!checkIfDoctorExistsById(doctorId)){  //check if doctor does not exists in database
-//            mDoctorIdView.setError(getString(R.string.error_incorrect_doctor_id));
-//            focusView = mDoctorIdView;
-//            cancel = true;
-//        }
-//
-//        if (cancel) {
-//            // There was an error; don't attempt login and focus the first
-//            // form field with an error.
-//            focusView.requestFocus();
-//        } else {
-//            //TODO LEARN HOW TO USE MAUTH OBJECT TO AUTHORIZE USERS
-//            if(Math.random()>.5) //if server could not  be reached
-//            {
-//                Toast.makeText(getBaseContext(), getString(R.string.error_sign_up_failed), Toast.LENGTH_SHORT).show();
-//            } else if(checkIfUserExistsByEmail(email)) { //if user already is registered
-//                Toast.makeText(getBaseContext(), getString(R.string.error_email_exists), Toast.LENGTH_SHORT).show();
-//            } else { //if sign up was successful
-//                Toast.makeText(getBaseContext(), getString(R.string.sign_up_successful), Toast.LENGTH_SHORT).show();
-//                this.finish();
-//            }
-//
-//        }
-    }
-
-    private boolean checkIfUserExistsByEmail(String email) {
-        boolean found = false;
-        String dummyData[] ={"patient@email","doctor@email"};
-        for(int i = 0; i<dummyData.length;i++)
-        {
-            if(dummyData[i].equals(email))
-                found = true;
-        }
-        return found;
-    }
-
-    private boolean checkIfDoctorExistsById(int doctorId) {
-        boolean found = false;
-        int dummyData[] ={1,2,3,4,5};
-        for(int i = 0; i<dummyData.length;i++)
-        {
-            if(dummyData[i]==doctorId)
-                found = true;
-        }
-        return found;
     }
 
     private boolean isEmailValid(String email) {
-        return email.contains("@") && email.length() <255;
+        return email.contains("@")
+                && email.length() <255;
     }
 
     private boolean isPasswordValid(String password) {
-        return password.length() > 4 && password.length() < 255;
+        return password.length() > 4
+                && password.length() < 255;
     }
 
     @Override

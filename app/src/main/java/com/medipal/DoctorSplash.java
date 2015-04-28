@@ -7,6 +7,8 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 
+import com.parse.ParseUser;
+
 public class DoctorSplash extends ActionBarActivity {
 
     private String userId;
@@ -24,7 +26,7 @@ public class DoctorSplash extends ActionBarActivity {
         String lastName="";
         lastName = getFirstNameByUserId(userId);
         android.support.v7.app.ActionBar actionBar = getSupportActionBar();
-        actionBar.setTitle("Welcome, Dr." + lastName + "!");
+        actionBar.setTitle("Welcome, Dr. " + lastName + "!");
 
     }
 
@@ -38,8 +40,7 @@ public class DoctorSplash extends ActionBarActivity {
 
     private String getFirstNameByUserId(String userId) {
         String lastName = "Doctor";
-        //TODO get the first name from the database
-             lastName = "Michaelsen"; //replace with logic
+             lastName = ParseUser.getCurrentUser().getString("Last_Name");
         return lastName;
     }
 

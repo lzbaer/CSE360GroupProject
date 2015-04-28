@@ -70,6 +70,8 @@
     <string name="current_email">Email:</string>
     <string name="error_signed_in_sign_up">Sign out before registering new account!</string>
     <string name="logout_successful">Logout successful!</string>
+    <string name="error_connection_failed">Could not reach server!</string>
+    <string name="error_unknown">Unknown error occured!</string>
 
     <string-array name="conditions_array">
         <item>No Condition</item>
