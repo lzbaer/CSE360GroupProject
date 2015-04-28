@@ -19,50 +19,45 @@ import com.parse.ParseUser;
 
 public class PatientEditInfoPage extends ActionBarActivity {
 
-    //current user
-    private String userId;
-
     //UI elements
     private TextView mFullNameView;
     private TextView mEmailView;
     private EditText mDoctorIdView;
     private ImageButton mDoctorIdHelpButton;
+    private Spinner mConditionSpinner;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_patient_edit_info_page);
 
-        //get userId from parent activity
-        Intent intent = this.getIntent();
-        userId = intent.getStringExtra(userId);
-
         //set up account information
         mFullNameView = (TextView) findViewById(R.id.full_name);
         mEmailView = (TextView) findViewById(R.id.email);
         mDoctorIdView = (EditText) findViewById(R.id.doctor_id);
+        mConditionSpinner = (Spinner) findViewById(R.id.condition_spinner);
         mDoctorIdView.clearFocus();
 
-        Spinner spinner = (Spinner) findViewById(R.id.condition_spinner);
         // Create an ArrayAdapter using the string array and a default spinner layout
         ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this,
                 R.array.conditions_array, android.R.layout.simple_spinner_item);
         // Specify the layout to use when the list of choices appears
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         // Apply the adapter to the spinner
-        spinner.setAdapter(adapter);
+        mConditionSpinner.setAdapter(adapter);
 
         //replace placeholder text with user information
         String firstName = ParseUser.getCurrentUser().getString("First_Name") + " "; //add space between names
         String lastName = ParseUser.getCurrentUser().getString("Last_Name");
         String email = ParseUser.getCurrentUser().getString("username");
-        String doctorId = ParseUser.getCurrentUser().getString("doctorID");
+        String doctorId = ParseUser.getCurrentUser().getString("DoctorID");
+        int conditionPosition = ParseUser.getCurrentUser().getInt("CurrentIllness");
 
         //set text fields
         mFullNameView.setText(firstName+lastName);
         mEmailView.setText(email);
         mDoctorIdView.setText(doctorId);
-
+        mConditionSpinner.setSelection(conditionPosition);
 
         //create button & action listener for signing in
         Button mUpdateInfo = (Button) findViewById(R.id.update_info_button);
@@ -85,7 +80,12 @@ public class PatientEditInfoPage extends ActionBarActivity {
     }
 
     private void attemptUpdate() {
-
+        String doctorId = mDoctorIdView.getText().toString();
+        int conditionPosition = mConditionSpinner.getSelectedItemPosition();
+        ParseUser currentUser = ParseUser.getCurrentUser();
+        currentUser.put("DoctorID",doctorId);
+        currentUser.put("CurrentIllness",conditionPosition);
+        currentUser.saveInBackground();
     }
 
 

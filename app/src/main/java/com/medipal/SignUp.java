@@ -157,7 +157,6 @@ public class SignUp extends ActionBarActivity {
 
         //create doctor id form
         mDoctorIdView = (EditText) findViewById(R.id.doctor_id);
-        //DoctorId = (EditText) findViewById(R.id.doctor_id);
 
         //create help button
         mDoctorIdHelpButton = (ImageButton) findViewById(R.id.doctor_id_help_button);
@@ -247,7 +246,7 @@ public class SignUp extends ActionBarActivity {
         user.setPassword(password);
         user.put("First_Name",first);
         user.put("Last_Name",last);
-        user.put("doctorID",doctorIdStr);
+        user.put("DoctorID",doctorIdStr);
         if(mDoctorRadioButton.isChecked()) {
             user.put("isDoctor", true);
         }
