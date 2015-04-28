@@ -6,25 +6,20 @@ import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 
 import com.parse.ParseUser;
 
 public class DoctorSplash extends ActionBarActivity {
-
-    private String userId;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_doctor_splash);
 
-        //get userid from login
-        Intent intent = this.getIntent();
-        userId = intent.getStringExtra(userId);
-
         //set title bar
         String lastName="";
-        lastName = getFirstNameByUserId(userId);
+        lastName = ParseUser.getCurrentUser().getString("Last_Name");
         android.support.v7.app.ActionBar actionBar = getSupportActionBar();
         actionBar.setTitle("Welcome, Dr. " + lastName + "!");
 
@@ -38,12 +33,6 @@ public class DoctorSplash extends ActionBarActivity {
         return true;
     }
 
-    private String getFirstNameByUserId(String userId) {
-        String lastName = "Doctor";
-             lastName = ParseUser.getCurrentUser().getString("Last_Name");
-        return lastName;
-    }
-
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         // Handle action bar item clicks here. The action bar will
@@ -55,8 +44,16 @@ public class DoctorSplash extends ActionBarActivity {
         if (id == R.id.action_logout) {
             return true;
         }
-
-
         return super.onOptionsItemSelected(item);
+    }
+
+    public void startDoctorAlerts(View view){
+        Intent intent = new Intent(this, DoctorAlerts.class);
+        startActivity(intent);
+    }
+
+    public void startDoctorPatientsList(View view){
+        Intent intent = new Intent(this, DoctorPatientsList.class);
+        startActivity(intent);
     }
 }
