@@ -260,19 +260,19 @@ public class SignUp extends ActionBarActivity {
                     // Show a simple Toast message upon successful registration
                     Toast.makeText(getApplicationContext(),
                             getString(R.string.sign_up_successful),
-                            Toast.LENGTH_LONG).show();
+                            Toast.LENGTH_SHORT).show();
                     finish();
                 } else if(e.getCode() == ParseException.USERNAME_TAKEN){
                     Toast.makeText(getApplicationContext(),
-                            getString(R.string.error_email_exists), Toast.LENGTH_LONG)
+                            getString(R.string.error_email_exists), Toast.LENGTH_SHORT)
                             .show();
                 } else if(e.getCode() == ParseException.CONNECTION_FAILED){
                     Toast.makeText(getApplicationContext(),
-                            getString(R.string.error_connection_failed), Toast.LENGTH_LONG)
+                            getString(R.string.error_connection_failed), Toast.LENGTH_SHORT)
                             .show();
                 } else {
                     Toast.makeText(getApplicationContext(),
-                            getString(R.string.error_unknown), Toast.LENGTH_LONG)
+                            getString(R.string.error_unknown), Toast.LENGTH_SHORT)
                             .show();
                 }
             }

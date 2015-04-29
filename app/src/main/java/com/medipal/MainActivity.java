@@ -31,11 +31,6 @@ public class MainActivity extends ActionBarActivity {
         ParseACL.setDefaultACL(defaultACL, true);
 
         ParseUser.logOut(); // So the user is logged out every time
-        //if the user is resuming a session
-        if(ParseUser.getCurrentUser() != null)
-        {
-            this.startUserSplashPage();
-        }
 
 
     }

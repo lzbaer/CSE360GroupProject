@@ -14,7 +14,8 @@ import com.parse.*;
 
 public class DoctorSplash extends ActionBarActivity {
 
-    private List<ParseObject> patientsList;
+    //private List<ParseObject> patientsList;
+    private ParseObject[] patientsList;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -26,6 +27,7 @@ public class DoctorSplash extends ActionBarActivity {
         android.support.v7.app.ActionBar actionBar = getSupportActionBar();
         actionBar.setTitle("Welcome, Dr. " + lastName + "!");
 
+
 //        ParseQuery<ParseObject> query = ParseQuery.getQuery("_User");
 //        query.getInBackground("VIAj830EfU", new GetCallback<ParseObject>() {
 //            public void done(ParseObject object, ParseException e) {
@@ -33,7 +35,7 @@ public class DoctorSplash extends ActionBarActivity {
 //                    String toPrint = object.getString("First_Name");
 //                    Toast.makeText(getApplicationContext(),
 //                            "Name " + toPrint,
-//                            Toast.LENGTH_LONG).show();
+//                            Toast.LENGTH_SHORT).show();
 //                } else {
 //
 //                }
@@ -47,21 +49,21 @@ public class DoctorSplash extends ActionBarActivity {
         query.findInBackground(new FindCallback<ParseObject>() {
             public void done(List<ParseObject> scoreList, ParseException e) {
                 if (e == null) {
-                    Toast.makeText(getApplicationContext(),
-                            "Patients " + scoreList.size(),
-                            Toast.LENGTH_LONG).show();
+
                 } else {
 
                 }
+                patientsList = new ParseObject[scoreList.size()];
                 for (int i = 0; i < scoreList.size(); i++) {
-                    Toast.makeText(getApplicationContext(),
+                    /*Toast.makeText(getApplicationContext(),
                             "Patient " + (i+1) + " " + scoreList.get(i).getString("First_Name"),
-                            Toast.LENGTH_LONG).show();
+                            Toast.LENGTH_SHORT).show();*/
+                    patientsList[i] = scoreList.get(i);
+
                 }
-                patientsList = scoreList;
             }
         });
-
+       // System.out.print(patientsList[0]);
     }
 
 

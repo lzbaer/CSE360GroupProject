@@ -3,41 +3,65 @@ package com.medipal;
 import android.content.Intent;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.BaseAdapter;
 //import com.parse.ParseQueryAdapter;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.ListView;
+import android.widget.TextView;
+import android.widget.Toast;
 
+import com.parse.FindCallback;
+import com.parse.Parse;
+import com.parse.ParseException;
 import com.parse.ParseObject;
+import com.parse.ParseQuery;
+import com.parse.ParseUser;
+
+import java.util.Arrays;
+import java.util.List;
 
 
 public class DoctorPatientsList extends ActionBarActivity {
 
-    private String userId;
+    private ListView mPatientsListView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_doctor_patients_list);
 
-        //get userId from parent activity
-        Intent intent = this.getIntent();
-        userId = intent.getStringExtra(userId);
+        String patientsArray[] = new String[50];
+        for (int i = 0; i < patientsArray.length; i++) {
+            patientsArray[i] = "Patient #" + i;
+        }
 
+        ParseQuery<ParseObject> query = ParseQuery.getQuery("_User");
+        // String docID = ParseUser.getCurrentUser().getString("DoctorID");
+        query.whereEqualTo("DoctorID", ParseUser.getCurrentUser().getString("DoctorID"));
+        query.whereNotEqualTo("isDoctor", true);
+        query.selectKeys(Arrays.asList("First_Name", "Last_Name", "urgency", "updatedAt"));
+        ;
+        List<ParseObject> results = null;
+        try {
+            results = query.find();
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
 
+        Toast.makeText(getBaseContext(),
+                results.toString(),
+                Toast.LENGTH_SHORT).show();
 
-        /*
-        //use a layout with ListView (id: patientsListView) using custom adapater
-        ParseQueryAdapter<ParseObject> parseQueryAdapter =
-                new ParseQueryAdapter<ParseObject>(this,"Instrument");
-        parseQueryAdapter.setTextKey("name");
-        parseQueryAdapter.setImageKey("image");
+        ArrayAdapter<CharSequence> adapter = new ArrayAdapter<CharSequence>(this, R.layout.text_view, patientsArray);
+        // Apply the adapter to the spinner
 
-        //get the list reference
-        ListView patientsListView = (ListView) findViewById(R.id.patientsListView);
-        patientsListView.setAdapter(parseQueryAdapter);
-        */
+        final ListView mPatientsListView = (ListView) findViewById(R.id.patientsListView);
+        mPatientsListView.setAdapter(adapter);
+
     }
 
 
@@ -62,5 +86,14 @@ public class DoctorPatientsList extends ActionBarActivity {
 
 
         return super.onOptionsItemSelected(item);
+    }
+
+    public void onActionListener(View view){
+        TextView PatientName = (TextView) view;
+        Toast.makeText(getBaseContext(),
+                PatientName.getText(),
+                Toast.LENGTH_SHORT).show();
+
+
     }
 }

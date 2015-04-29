@@ -125,13 +125,13 @@ public class Login extends ActionBarActivity {
                             startActivity(intent);
                             Toast.makeText(getApplicationContext(),
                                     getString(R.string.login_successful),
-                                    Toast.LENGTH_LONG).show();
+                                    Toast.LENGTH_SHORT).show();
                             finish();
                         } else {
                             Toast.makeText(
                                     getApplicationContext(),
                                     getString(R.string.error_incorrect_login),
-                                    Toast.LENGTH_LONG).show();
+                                    Toast.LENGTH_SHORT).show();
                         }
                     }
                 });

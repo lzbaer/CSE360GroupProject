@@ -90,7 +90,7 @@ public class PatientEditInfoPage extends ActionBarActivity {
 
         Toast.makeText(getApplicationContext(),
                 "Info Updated",
-                Toast.LENGTH_LONG).show();
+                Toast.LENGTH_SHORT).show();
     }
 
 

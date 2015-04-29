@@ -44,13 +44,13 @@ public class PatientEnterSymptoms extends ActionBarActivity {
 
         Toast.makeText(getApplicationContext(),
                 "Data " + ParseUser.getCurrentUser().getString("Symptoms") + " Added",
-                Toast.LENGTH_LONG).show();
+                Toast.LENGTH_SHORT).show();
 
         //TODO: Go back a page
 
         Toast.makeText(getApplicationContext(),
                ParseUser.getCurrentUser().getString("Symptoms"),
-                Toast.LENGTH_LONG).show();
+                Toast.LENGTH_SHORT).show();
     }
 
 
