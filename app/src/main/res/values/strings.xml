@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">Medipal</string>
+    <string name="action_logout">Logout</string>
+    <string name="title_activity_login">Sign into Medipal</string>
+    <string name="title_activity_doctor_splash">Welcome, DoctorName!</string>
+    <string name="title_activity_doctor_alerts">View Alerts</string>
+    <string name="title_activity_doctor_patients_list">Patients Under Your Supervision:</string>
+    <string name="title_activity_patient_splash">Welcome, PatientName!</string>
+    <string name="title_activity_patient_enter_symptoms">Create a New Log</string>
+    <string name="title_activity_patient_info_page">Personal Information:</string>
+    <string name="title_activity_doctor_view_patient_info_page">PatientName\'s Personal Information:</string>
+    <string name="title_activity_patient_edit_info_page">Update Personal Information:</string>
+    <string name="title_activity_sign_up">Sign Up for Medipal</string>
+
+    <!-- Welcome screen -->
+    <string name="welcome_start_up">Welcome to Medipal!</string>
+    <string name="splash_description">splash logo</string>
+    <string name="login">Login</string>
+    <string name="sign_up">Sign up!</string>
+
+    <!-- Login screen  -->
+    <string name="prompt_email">Email Address</string>
+    <string name="prompt_password">Password</string>
+    <string name="action_sign_in_short">Sign In</string>
+    <string name="action_sign_in">Sign In</string>
+    <string name="error_incorrect_login">Username or password incorrect!</string>
+    <string name="error_invalid_email">Email is not valid!</string>
+    <string name="error_field_required">This field is required!</string>
+    <string name="error_invalid_password">Invalid password!</string>
+    <string name="login_successful">Login successful!</string>
+
+    <!-- Patient enter symptoms screen -->
+    <string name="pain">Pain (10 is worst possible pain)</string>
+    <string name="fatigue">Fatigue (lack of energy)</string>
+    <string name="drowsiness">Drowsiness (feeling sleepy)</string>
+    <string name="nausea">Nausea</string>
+    <string name="appetite">Lack of Appetite</string>
+    <string name="breath">Shortness of Breath</string>
+    <string name="depression">Depression (feeling depressed)</string>
+    <string name="anxiety">Anxiety (feeling nervous)</string>
+    <string name="well_being">Wellbeing (10 is best possible overall feeling)</string>
+    <string name="send_survey_button">Submit New Survey</string>
+    <string name="submit_survey_button">Submit Survey</string>
+    <string name="survey_submitted">Survey submitted!</string>
+    <string name="error_survey_submission_failed">Survey submission failed!</string>
+
+    <!-- Sign up screen -->
+    <string name="first_name_prompt">Please enter your first name:</string>
+    <string name="last_name_prompt">Please enter your last name:</string>
+    <string name="first_name">First Name</string>
+    <string name="last_name">Last Name</string>
+    <string name="doctor_id_prompt">Doctor ID</string>
+    <string name="help_button_description">help button</string>
+    <string name="error_email_exists">An account already exists with that email!</string>
+    <string name="error_incorrect_doctor_id">This doctor does not exist!</string>
+    <string name="error_invalid_doctor_id">Invalid Doctor ID!</string>
+    <string name="doctor_id_creation_prompt">Your Doctor ID will be automatically assigned to you upon account creation. Please make a note of your ID for your own reference. If you ever forget your ID, you can locate it on your home page.</string>
+    <string name="error_checked_id_invalid">err:checked_id_invalid: Radio button selection not possible!</string>
+    <string name="sign_up_successful">Sign up successful!</string>
+    <string name="error_sign_up_failed">Sign up failed!</string>
+    <string name="account_information_header">Account Information:</string>
+    <string name="doctor_id_tool_tip">Enter the Doctor ID provided by your medical professional</string>
+    <string name="placeholder_text">Placeholder Text</string>
+    <string name="update_information_button">Update Information</string>
+    <string name="known_conditions_prompt">Known Conditions:</string>
+    <string name="doctor_id_edit_prompt">Doctor ID:</string>
+    <string name="current_name">Name:</string>
+    <string name="current_email">Email:</string>
+    <string name="error_signed_in_sign_up">Sign out before registering new account!</string>
+    <string name="logout_successful">Logout successful!</string>
+    <string name="error_connection_failed">Could not reach server!</string>
+    <string name="error_unknown">Unknown error occured!</string>
+
+    <string-array name="conditions_array">
+        <item>No Condition</item>
+        <item>ALS (Lou Gehrig\'s Disease)</item>
+        <item>Alzheimer\'s Disease</item>
+        <item>Breast Cancer</item>
+        <item>Cancer</item>
+        <item>Chronic Obstructive Pulmonary Disease</item>
+        <item>Colon Cancer</item>
+        <item>Congestive Heart Failure</item>
+        <item>Dementia</item>
+        <item>Head and Neck Cancer</item>
+        <item>HIV/AIDS</item>
+        <item>Kidney Disease</item>
+        <item>Leukemia and Lymphoma</item>
+        <item>Liver Disease</item>
+        <item>Lung Cancer</item>
+        <item>Multiple Myeloma</item>
+        <item>Ovarian Cancer</item>
+        <item>Pancreatic Cancer</item>
+        <item>Parkinson\'s Disease</item>
+        <item>Prostate Cancer</item>
+        <item>Stroke</item>
+        <item>Other</item>
+    </string-array>
+
+</resources>
