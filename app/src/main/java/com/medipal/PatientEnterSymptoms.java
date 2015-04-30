@@ -233,7 +233,7 @@ public class PatientEnterSymptoms extends ActionBarActivity {
                     for (int r = 0; r < records.length-1; r++)
                     {
                         total += symptomsInRec[r][c];
-                        allRecords[i][c] = total;
+                        allRecords[i][c] = total/(records.length-1);
                     }
                 }
 
@@ -262,6 +262,9 @@ public class PatientEnterSymptoms extends ActionBarActivity {
                     totalDiffperIndex += diffArray[i][j];
                 }
                 totalDiff[i] = totalDiffperIndex;
+                Log.e("index",""+i);
+                Log.e("Total difference at index", "" + totalDiff[i]);
+
             }
 
             //search through totalDiff to find minimum difference
@@ -274,6 +277,7 @@ public class PatientEnterSymptoms extends ActionBarActivity {
                 }
             }
         }
+        Log.e("finaloutput", "" + indexIllness);
         return indexIllness;
     }
 
