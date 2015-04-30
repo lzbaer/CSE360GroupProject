@@ -110,28 +110,84 @@
 
                 </LinearLayout>
 
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textAppearance="?android:attr/textAppearanceLarge"
+                    android:text="@string/patient_information_header"
+                    android:id="@+id/patient_information_header" />
+
+                <Spinner
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:paddingStart="?android:attr/listPreferredItemPaddingStart"
+                    android:paddingEnd="?android:attr/listPreferredItemPaddingEnd"
+                    android:minHeight="?android:attr/listPreferredItemHeightSmall"
+                    android:id="@+id/spinner" />
+
+                <LinearLayout
+                    android:orientation="horizontal"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    >
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical"
+                        android:textAppearance="?android:attr/textAppearanceMedium"
+                        android:text="Sort by:"
+                        android:id="@+id/textView" />
+
+                    <RadioGroup
+                        android:layout_width="0dp"
+                        android:layout_weight="1"
+                        android:layout_height="fill_parent"
+                        android:orientation="horizontal"
+                        android:id="@+id/radioGroup" >
+
+                        <RadioButton
+                            android:layout_width="0dp"
+                            android:layout_weight="1"
+                            android:layout_height="wrap_content"
+                            android:text="Urgency"
+                            android:id="@+id/radioButton"
+                            android:checked="true" />
+
+                        <RadioButton
+                            android:layout_width="0dp"
+                            android:layout_weight="1"
+                            android:layout_height="wrap_content"
+                            android:text="Recency"
+                            android:id="@+id/radioButton2"
+                            android:checked="true" />
+                    </RadioGroup>
+                </LinearLayout>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textAppearance="?android:attr/textAppearanceLarge"
+                    android:text="@string/alerts"
+                    android:id="@+id/alerts" />
+
+                <ListView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/listView" />
+
             </LinearLayout>
         </ScrollView>
 
         <Button
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:text="View Patients"
+            android:text="View Selected Patient"
             android:id="@+id/view_patients_button"
             android:layout_below="@+id/sort_by_header"
             android:layout_alignParentLeft="true"
             android:layout_alignParentStart="true"
             android:onClick="startDoctorPatientsList"/>
-
-        <Button
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:text="View Alerts"
-            android:id="@+id/view_alerts_button"
-            android:layout_below="@+id/view_patients_button"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentStart="true"
-            android:onClick="startDoctorAlerts"/>
 
     </LinearLayout>
 

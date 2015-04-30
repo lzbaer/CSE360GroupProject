@@ -9,7 +9,7 @@ import android.view.MenuItem;
 
 public class DoctorViewPatientInfoPage extends ActionBarActivity {
 
-    private String userId;
+    private String objectId;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -18,7 +18,8 @@ public class DoctorViewPatientInfoPage extends ActionBarActivity {
 
         //get userId from parent activity
         Intent intent = this.getIntent();
-        userId = intent.getStringExtra(userId);
+        objectId = intent.getStringExtra(objectId);
+
     }
 
 

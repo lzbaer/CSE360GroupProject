@@ -117,7 +117,7 @@
                         android:layout_weight="1"
                         android:layout_height="wrap_content"
                         android:hint="@string/doctor_id_prompt"
-                        android:inputType="textNoSuggestions"
+                        android:inputType="number"
                         android:ems="10"
                         android:id="@+id/doctor_id" />
 

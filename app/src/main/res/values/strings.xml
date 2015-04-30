@@ -72,6 +72,8 @@
     <string name="logout_successful">Logout successful!</string>
     <string name="error_connection_failed">Could not reach server!</string>
     <string name="error_unknown">Unknown error occured!</string>
+    <string name="patient_information_header">Your Patients:</string>
+    <string name="alerts">Your Alerts:</string>
 
     <string-array name="conditions_array">
         <item>No Condition</item>
@@ -95,7 +97,6 @@
         <item>Parkinson\'s Disease</item>
         <item>Prostate Cancer</item>
         <item>Stroke</item>
-        <item>Other</item>
     </string-array>
 
 </resources>

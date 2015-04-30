@@ -23,6 +23,9 @@ import android.widget.TextView;
 import android.widget.Toast;
 import com.parse.*;
 
+import java.util.Arrays;
+import java.util.List;
+
 
 public class SignUp extends ActionBarActivity {
 
@@ -45,6 +48,8 @@ public class SignUp extends ActionBarActivity {
 
     //set up animation
     private int mAnimationDuration;
+
+    private int load;
 
     public SignUp() {
     }
@@ -239,16 +244,65 @@ public class SignUp extends ActionBarActivity {
         }
     }
 
-    private void registerNewUser(String email, String password, String first, String last, String doctorIdStr){
+    private void registerNewUser(String email, String password, String first, String last, String doctorIdStr) {
         //Create Parse
         ParseUser user = new ParseUser();
         user.setUsername(email);
         user.setPassword(password);
-        user.put("First_Name",first);
-        user.put("Last_Name",last);
-        user.put("DoctorID",doctorIdStr);
-        if(mDoctorRadioButton.isChecked()) {
+        user.put("First_Name", first);
+        user.put("Last_Name", last);
+        user.put("DoctorID", doctorIdStr);
+        user.put("Symptoms", "");
+        if (mDoctorRadioButton.isChecked()) {
             user.put("isDoctor", true);
+            ParseQuery<ParseObject> query = ParseQuery.getQuery("_User");
+            query.whereEqualTo("isDoctor",true);
+            List<ParseObject> service = null;
+            query.selectKeys(Arrays.asList("DoctorID"));
+
+            try {
+                service = query.find();
+            } catch (ParseException e) {
+                e.printStackTrace();
+            }
+
+            int id = service.size()+1;
+            user.put("DoctorID", Integer.toString(id));
+            user.saveInBackground();
+            /*
+            ParseObject serviceUser = service.get(0);
+            String load = serviceUser.getString("DoctorID");
+            Toast.makeText(getBaseContext(),
+                    ("" + load),
+                    Toast.LENGTH_SHORT).show();
+            serviceUser.put("DoctorID","cat");
+            serviceUser.saveInBackground();
+            load = serviceUser.getString("DoctorID");
+            Toast.makeText(getBaseContext(),
+                    ("" + load),
+                    Toast.LENGTH_SHORT).show();*/
+/*
+            query.getInBackground("l6pq5FxjcF", new GetCallback<ParseObject>() {
+                public void done(ParseObject object, ParseException e) {
+                    if (e == null) {
+                        final int toLoad = Integer.parseInt(object.getString("DoctorID"));
+                        load = toLoad;
+                        object.put("DoctorID", Integer.toString((Integer.parseInt(object.getString("DoctorID") + 1))));
+                        object.put("DoctorID", "mouse");
+                        object.saveInBackground();
+                        Toast.makeText(getBaseContext(),
+                                ("" + load),
+                                Toast.LENGTH_SHORT).show();
+                    } else {
+                        // something went wrong
+                    }
+                }
+            });
+
+            user.put("DoctorID", Integer.toString(load));
+            user.saveInBackground();*/
+
+
         }
         else
         {

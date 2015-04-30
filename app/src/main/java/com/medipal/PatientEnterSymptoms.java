@@ -16,16 +16,10 @@ import com.parse.ParseUser;
 
 public class PatientEnterSymptoms extends ActionBarActivity {
 
-    private String userId;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_patient_enter_symptoms);
-
-        //get userId from parent activity
-        Intent intent = this.getIntent();
-        userId = intent.getStringExtra(userId);
 
         //create button and listener for submit survey
         Button mSubmitSurvey = (Button) findViewById(R.id.submit_survey_button);
@@ -40,17 +34,15 @@ public class PatientEnterSymptoms extends ActionBarActivity {
     private void attemptSubmitSurvey() {
 
 
-       ParseUser.getCurrentUser().put("Symptoms", getValuesFromSurveyFields() + ";" + ParseUser.getCurrentUser().getString("Symptoms"));
+
+        ParseUser.getCurrentUser().put("Symptoms", getValuesFromSurveyFields() + ";" + ParseUser.getCurrentUser().getString("Symptoms"));
+        ParseUser.getCurrentUser().saveInBackground();
+
 
         Toast.makeText(getApplicationContext(),
-                "Data " + ParseUser.getCurrentUser().getString("Symptoms") + " Added",
+                getString(R.string.survey_submitted),
                 Toast.LENGTH_SHORT).show();
-
-        //TODO: Go back a page
-
-        Toast.makeText(getApplicationContext(),
-               ParseUser.getCurrentUser().getString("Symptoms"),
-                Toast.LENGTH_SHORT).show();
+        finish();
     }
 
 
