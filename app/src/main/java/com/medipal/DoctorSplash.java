@@ -26,9 +26,7 @@ import com.parse.codec.CharEncoding;
 
 public class DoctorSplash extends ActionBarActivity {
 
-    //private List<ParseObject> patientsList;
     private ParseObject[] patientsList;
-    //private ArrayAdapter<CharSequence> spinnerAdapter= null;
     private ArrayAdapter<CharSequence> listAdapter= null;
     private List<CharSequence> alerts = null;
     private List<ParseObject> results = null;

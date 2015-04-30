@@ -81,8 +81,8 @@
     <string name="error_invalid_name">Name is invalid!</string>
     <string name="error_no_patients">You don\'t have any patients!</string>
     <string name="info_updated">Information updated!</string>
-    <string name="urgency">Urgency</string>
-    <string name="recency">Recency</string>
+    <string name="urgency">Urgent</string>
+    <string name="recency">Recent</string>
     <string name="name">Name</string>
     <string name="view_selected_patient">View Selected Patient</string>
 
