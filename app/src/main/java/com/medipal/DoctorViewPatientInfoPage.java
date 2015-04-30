@@ -9,6 +9,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.ListView;
 import android.widget.Spinner;
 import android.widget.TextView;
 
@@ -33,6 +34,7 @@ public class DoctorViewPatientInfoPage extends ActionBarActivity {
     private Spinner mConditionSpinner;
     private Spinner mPotentialSpinner;
     private TextView mCurrentSymptoms;
+    private ListView mPatientRecordsListView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,14 +44,14 @@ public class DoctorViewPatientInfoPage extends ActionBarActivity {
         //get userId from parent activity
         Intent intent = this.getIntent();
         objectId = intent.getStringExtra("objectId");
+        objectId = intent.getStringExtra("objectId");
 
         //set up account information
         mFullNameView = (TextView) findViewById(R.id.full_name);
         mConditionSpinner = (Spinner) findViewById(R.id.condition_spinner);
         mPotentialSpinner = (Spinner) findViewById(R.id.potential_spinner);
         mCurrentSymptoms = (TextView) findViewById(R.id.current_symptoms);
-
-
+        mPatientRecordsListView = (ListView) findViewById(R.id.patient_records);
 
         //build some GUI
         ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this,
@@ -71,6 +73,24 @@ public class DoctorViewPatientInfoPage extends ActionBarActivity {
         //store patient
         ParseObject patient = results.get(0);
 
+        //get array of symptom arrays
+        ArrayList<String[]> patientRecords = getPatientRecords(patient.getString("Symptoms"));
+        /*String str = "";
+        for(int i=0;i<15;i++){
+            String[] dummyData=new String[9];
+            for(int j=0;j<9;j++){
+                dummyData[j] = ""+(Math.round((Math.random()*10)));
+                str+=dummyData[j]+", ";
+            }
+            str+="\n ";
+            patientRecords.add(dummyData);
+        }
+        Log.i("Dummy Array",str);*/
+
+        //build a records list adapter
+        PatientRecordsAdapter patientRecordsAdapter = new PatientRecordsAdapter(this,patientRecords);
+        mPatientRecordsListView.setAdapter(patientRecordsAdapter);
+
         //replace placeholder text with user information
         String firstName = patient.getString("First_Name") + " "; //add space between names
         String lastName = patient.getString("Last_Name");
@@ -78,7 +98,7 @@ public class DoctorViewPatientInfoPage extends ActionBarActivity {
         int potentialConditionPosition = patient.getInt("predictedIllness");
         int urgency = patient.getInt("urgency");
         final String[] urgencyStrings = {"Stable","Problematic", "Significantly Problematic" };
-        String currentSymptoms = "Current Symptoms: " + urgencyStrings[urgency];
+        String currentSymptoms = "Current Symptoms: \n" + urgencyStrings[urgency];
 
         //set fields
         mFullNameView.setText(firstName + lastName);
@@ -88,7 +108,16 @@ public class DoctorViewPatientInfoPage extends ActionBarActivity {
 
     }
 
+    private ArrayList<String[]> getPatientRecords(String symptoms) {
+        ArrayList<String[]> listOfSubmissions = new ArrayList<String[]>();
+        String[] indivSubmissions = symptoms.split(",;");
 
+        for (int i = 0; i < indivSubmissions.length; i++) {
+            listOfSubmissions.add(indivSubmissions[i].split(","));
+        }
+
+        return listOfSubmissions;
+    }
 
 
     @Override
