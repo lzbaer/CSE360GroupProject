@@ -3,6 +3,7 @@ package com.medipal;
 import android.content.Intent;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -36,8 +37,10 @@ public class PatientEnterSymptoms extends ActionBarActivity {
 
 
         ParseUser.getCurrentUser().put("Symptoms", getValuesFromSurveyFields() + ";" + ParseUser.getCurrentUser().getString("Symptoms"));
-        ParseUser.getCurrentUser().saveInBackground();
+        ParseUser.getCurrentUser().put("urgency",calculateUrgencyScore());
+        //ParseUser.getCurrentUser().put("predictedIllness", calculateSimilarity());
 
+        ParseUser.getCurrentUser().saveInBackground();
 
         Toast.makeText(getApplicationContext(),
                 getString(R.string.survey_submitted),
@@ -69,6 +72,78 @@ public class PatientEnterSymptoms extends ActionBarActivity {
         }
 
         return values;
+    }
+
+    private int calculateUrgencyScore()
+    {
+        int urgency = 0;
+        String allRecords = ParseUser.getCurrentUser().getString("Symptoms");
+        String[] records = allRecords.split(",;");
+        String currentRecord = records[0];
+        Log.e("Current Record: ", currentRecord);
+
+        if (records.length >= 16) {
+            double[] pastSymptoms = new double[9]; //sum of all symptoms for past record
+            int numPastRecords = records.length - 1; //num of past records
+            double[][] allPastRecords = new double[numPastRecords][9]; //2d array of all past records
+
+            for (int i = 1; i < numPastRecords; i++) {
+                String pastRecord = records[i];
+                String[] symptoms = pastRecord.split(",");
+                double[] symptomsNum = new double[9]; //past record at index
+                for (int j = 0; j < 9; j++) {
+                    Log.e("Inside loop",symptoms[j]);
+                    symptomsNum[j] = Double.parseDouble(symptoms[j]);
+                    allPastRecords[i][j] = symptomsNum[j]; //add past record at index to 2d array
+                    pastSymptoms[j] += symptomsNum[j];
+
+                }
+            }
+            //compute mean for past record symptoms
+            double[] meanPast = pastSymptoms;
+            double[] variancePast = new double[9];
+            double[][] varianceValues = allPastRecords;
+            for (int i = 0; i < meanPast.length; i++) {
+                meanPast[i] = meanPast[i] / numPastRecords;
+            }
+
+            for (int i = 0; i < numPastRecords; i++) {
+                for (int j = 0; j < 9; j++) {
+                    varianceValues[i][j] = Math.pow((allPastRecords[i][j] - meanPast[j]), 2);
+                    variancePast[j] += varianceValues[i][j];
+                }
+            }
+
+            double[] stanDevPast = variancePast;
+            for (int i = 0; i < 9; i++) {
+                variancePast[i] = variancePast[i] / (numPastRecords - 1);
+                stanDevPast[i] = Math.pow(variancePast[i], 1 / 2);
+            }
+
+            //variance and means for each symptom for all past records done calculating
+
+
+            //get current record values
+            String[] cRecord;
+            double[] currentSymptoms = new double[9];
+            cRecord = currentRecord.split(",");
+            for (int i = 0; i < 9; i++) {
+                currentSymptoms[i] = Double.parseDouble(cRecord[i]);
+            }
+
+            ////compare standard deviation to each symptom in current
+            double[] stanFromMean = new double[9];
+            for (int i = 0; i < 9; i++) {
+                //find how many standard deviations above mean
+                stanFromMean[i] = currentSymptoms[i] - meanPast[i];
+                if (stanFromMean[i] >= (2 * stanDevPast[i])) {
+                    urgency = 2;
+                } else if (stanFromMean[i] >= (stanDevPast[i]))
+                    urgency = 1;
+            }
+        }
+
+        return urgency;
     }
 
 
