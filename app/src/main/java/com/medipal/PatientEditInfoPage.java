@@ -89,8 +89,10 @@ public class PatientEditInfoPage extends ActionBarActivity {
         currentUser.saveInBackground();
 
         Toast.makeText(getApplicationContext(),
-                "Info Updated",
+                getString(R.string.info_updated),
                 Toast.LENGTH_SHORT).show();
+
+        finish();
     }
 
 

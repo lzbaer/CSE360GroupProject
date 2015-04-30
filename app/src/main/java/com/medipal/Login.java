@@ -26,7 +26,7 @@ public class Login extends ActionBarActivity {
     private View mEmailLoginFormView;
     private View mSignOutButtons;
     private View mLoginFormView;
-
+    private Button mEmailSignInButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,8 +40,8 @@ public class Login extends ActionBarActivity {
         mPasswordView.setOnEditorActionListener(new TextView.OnEditorActionListener() {
             @Override
             public boolean onEditorAction(TextView textView, int id, KeyEvent keyEvent) {
-                if (id == R.id.login || id == EditorInfo.IME_NULL) {
-                    attemptLogin();
+                if (id == R.id.login || id == EditorInfo.IME_NULL ) {
+                        attemptLogin();
                     return true;
                 }
                 return false;
@@ -49,7 +49,7 @@ public class Login extends ActionBarActivity {
         });
 
         //create button & action listener for signing in
-        Button mEmailSignInButton = (Button) findViewById(R.id.email_sign_in_button);
+        mEmailSignInButton = (Button) findViewById(R.id.email_sign_in_button);
         mEmailSignInButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -96,6 +96,7 @@ public class Login extends ActionBarActivity {
             // There was an error; don't attempt login and focus the first
             // form field with an error.
             focusView.requestFocus();
+            mEmailSignInButton.setEnabled(true);
         } else {
             authenticateLogin(email, password);
         }
@@ -147,7 +148,6 @@ public class Login extends ActionBarActivity {
 
                     }
                 });
-
     }
 
     private boolean isEmailValid(String email) {

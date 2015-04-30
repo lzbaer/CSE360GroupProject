@@ -21,14 +21,14 @@ import android.widget.Toast;
 import java.util.*;
 
 import com.parse.*;
-
+import com.parse.codec.CharEncoding;
 
 
 public class DoctorSplash extends ActionBarActivity {
 
     //private List<ParseObject> patientsList;
     private ParseObject[] patientsList;
-    private ArrayAdapter<CharSequence> spinnerAdapter= null;
+    //private ArrayAdapter<CharSequence> spinnerAdapter= null;
     private ArrayAdapter<CharSequence> listAdapter= null;
     private List<CharSequence> alerts = null;
     private List<ParseObject> results = null;
@@ -108,6 +108,7 @@ public class DoctorSplash extends ActionBarActivity {
         actionBar.setTitle("Welcome, Dr. " + lastName + "!");
 
         getResultsFromQuery();
+        sortByRecency();
         updateViews();
 
     }
@@ -140,13 +141,13 @@ public class DoctorSplash extends ActionBarActivity {
         }
 
         // Create an ArrayAdapter using the string array and a default spinner layout
-        if(spinnerAdapter!=null){
-            spinnerAdapter=null;
-            mSpinner.setAdapter(null);
-        }
-        spinnerAdapter = new ArrayAdapter<CharSequence>(this,android.R.layout.simple_spinner_item,patientNames);
+//        if(spinnerAdapter!=null){
+//            spinnerAdapter.clear();
+//        }
+        ArrayAdapter<CharSequence>spinnerAdapter = new ArrayAdapter<CharSequence>(this,android.R.layout.simple_spinner_item,patientNames);
         spinnerAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         mSpinner.setAdapter(spinnerAdapter);
+        spinnerAdapter.notifyDataSetChanged();
 
         //create an arrayadapter for list
         listAdapter = new ArrayAdapter<CharSequence>(this,R.layout.text_view,alertsTexts);
@@ -240,25 +241,25 @@ public class DoctorSplash extends ActionBarActivity {
         return super.onOptionsItemSelected(item);
     }
 
-    public void startDoctorAlerts(View view){
-
-
-        Intent intent = new Intent(this, DoctorAlerts.class);
-        startActivity(intent);
-    }
-
     public void startDoctorPatientsList(View view){
 
-        //store patient
-        int position = mSpinner.getSelectedItemPosition();
-        ParseObject patient = results.get(position);
-        String objectId = patient.getObjectId();
+        //start view patient info activity if results is not empty
+        if(results.size()>0){
+            //store patient
+            int position = mSpinner.getSelectedItemPosition();
+            ParseObject patient = results.get(position);
+            String objectId = patient.getObjectId();
 
-        Intent intent = new Intent(this, DoctorViewPatientInfoPage.class);
-        intent.putExtra("objectId",objectId);
-        startActivity(intent);
+            Intent intent = new Intent(this, DoctorViewPatientInfoPage.class);
+            intent.putExtra("objectId",objectId);
+            startActivity(intent);
+        }else{
+            Toast.makeText(
+                    getBaseContext(),
+                    getString(R.string.error_no_patients),
+                    Toast.LENGTH_SHORT).show();
+        }
     }
-
     public String[] getAnArray(String[] str){
         inString = str.clone();
         return str;

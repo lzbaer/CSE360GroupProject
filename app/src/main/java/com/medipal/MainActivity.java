@@ -57,6 +57,12 @@ public class MainActivity extends ActionBarActivity {
             if(ParseUser.getCurrentUser()!=null){
                 ParseUser.logOut();
                 Toast.makeText(getBaseContext(), getString(R.string.logout_successful), Toast.LENGTH_SHORT).show();
+            }else{
+                Toast.makeText(
+                        getBaseContext(),
+                        "Already signed out!",
+                        Toast.LENGTH_SHORT
+                ).show();
             }
         }
 

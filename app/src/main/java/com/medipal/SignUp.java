@@ -170,7 +170,7 @@ public class SignUp extends ActionBarActivity {
             public void onClick(View view) {
                 mDoctorIdView.requestFocus();
                 ((EditText)mDoctorIdView).setError(getString(R.string.doctor_id_tool_tip), null);
-                }
+            }
         });
     }
 
@@ -180,6 +180,9 @@ public class SignUp extends ActionBarActivity {
         // Reset errors.
         mEmailView.setError(null);
         mPasswordView.setError(null);
+        mFirstNameView.setError(null);
+        mLastNameView.setError(null);
+        mDoctorIdView.setError(null);
 
         // Store values at the time of the login attempt.
         String first = mFirstNameView.getText().toString();
@@ -187,6 +190,7 @@ public class SignUp extends ActionBarActivity {
         String email = mEmailView.getText().toString();
         String password = mPasswordView.getText().toString();
         String doctorIdStr = mDoctorIdView.getText().toString();
+        String symptoms = "";
         System.out.print(email);
         boolean cancel = false;
         View focusView = null;
@@ -197,21 +201,11 @@ public class SignUp extends ActionBarActivity {
             focusView = mFirstNameView;
             cancel = true;
         }
-        if (!isNameValid(first)) {
-            mFirstNameView.setError(getString(R.string.error_invalid_name));
-            focusView = mFirstNameView;
-            cancel = true;
-        }
 
         //check for a valid last name
         if (TextUtils.isEmpty(last)) {
             mLastNameView.setError(getString(R.string.error_field_required));
             focusView = mLastNameView;
-            cancel = true;
-        }
-        if (!isNameValid(last)) {
-            mLastNameView.setError(getString(R.string.error_invalid_name));
-            focusView = mFirstNameView;
             cancel = true;
         }
 
@@ -250,11 +244,11 @@ public class SignUp extends ActionBarActivity {
             // form field with an error.
             focusView.requestFocus();
         } else {
-           registerNewUser(email,password,first,last,doctorIdStr);
+            registerNewUser(email,password,first,last,doctorIdStr,symptoms);
         }
     }
 
-    private void registerNewUser(String email, String password, String first, String last, String doctorIdStr) {
+    private void registerNewUser(String email, String password, String first, String last, String doctorIdStr, String symptoms) {
         //Create Parse
         ParseUser user = new ParseUser();
         user.setUsername(email);
@@ -262,7 +256,13 @@ public class SignUp extends ActionBarActivity {
         user.put("First_Name", first);
         user.put("Last_Name", last);
         user.put("DoctorID", doctorIdStr);
-        user.put("Symptoms", "");
+
+        //GUARD AGAINSTS UNDEFINED VARIABLES
+        user.put("Symptoms", symptoms);
+        final int ZERO = 0;
+        user.put("CurrentIllness", ZERO);
+        user.put("predictedIllness", ZERO);
+        user.put("urgency", ZERO);
         if (mDoctorRadioButton.isChecked()) {
             user.put("isDoctor", true);
             ParseQuery<ParseObject> query = ParseQuery.getQuery("_User");
@@ -279,6 +279,39 @@ public class SignUp extends ActionBarActivity {
             int id = service.size()+1;
             user.put("DoctorID", Integer.toString(id));
             user.saveInBackground();
+            /*
+            ParseObject serviceUser = service.get(0);
+            String load = serviceUser.getString("DoctorID");
+            Toast.makeText(getBaseContext(),
+                    ("" + load),
+                    Toast.LENGTH_SHORT).show();
+            serviceUser.put("DoctorID","cat");
+            serviceUser.saveInBackground();
+            load = serviceUser.getString("DoctorID");
+            Toast.makeText(getBaseContext(),
+                    ("" + load),
+                    Toast.LENGTH_SHORT).show();*/
+/*
+            query.getInBackground("l6pq5FxjcF", new GetCallback<ParseObject>() {
+                public void done(ParseObject object, ParseException e) {
+                    if (e == null) {
+                        final int toLoad = Integer.parseInt(object.getString("DoctorID"));
+                        load = toLoad;
+                        object.put("DoctorID", Integer.toString((Integer.parseInt(object.getString("DoctorID") + 1))));
+                        object.put("DoctorID", "mouse");
+                        object.saveInBackground();
+                        Toast.makeText(getBaseContext(),
+                                ("" + load),
+                                Toast.LENGTH_SHORT).show();
+                    } else {
+                        // something went wrong
+                    }
+                }
+            });
+            user.put("DoctorID", Integer.toString(load));
+            user.saveInBackground();*/
+
+
         }
         else
         {
@@ -307,9 +340,6 @@ public class SignUp extends ActionBarActivity {
                 }
             }
         });
-    }
-    private boolean isNameValid(String name) {
-        return name.matches("[a-zA-Z]+") && name.substring(0,1).matches("[A-Z]+");
     }
 
     private boolean isEmailValid(String email) {
