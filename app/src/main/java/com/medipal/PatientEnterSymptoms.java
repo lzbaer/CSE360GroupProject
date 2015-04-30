@@ -236,7 +236,7 @@ public class PatientEnterSymptoms extends ActionBarActivity {
                         allRecords[i][c] = total;
                     }
                 }
-                Log.e("Nothing","");
+
             }
             //get current record values
 
@@ -248,6 +248,7 @@ public class PatientEnterSymptoms extends ActionBarActivity {
             for (int i = 0; i < 9; i++)
             {
                 currentSymptoms[i] = Double.parseDouble(cRecord[i]);
+                Log.e("Current Symptoms", cRecord[i]);
             }
 
             double[][] diffArray = new double [numTerminalIllnesses][9];
