@@ -249,6 +249,10 @@ public class SignUp extends ActionBarActivity {
     }
 
     private void registerNewUser(String email, String password, String first, String last, String doctorIdStr, String symptoms) {
+        //format name
+        first = first.substring(0,1).toUpperCase() + first.substring(1,first.length());
+        last = last.substring(0,1).toUpperCase() + last.substring(1,last.length());
+
         //Create Parse
         ParseUser user = new ParseUser();
         user.setUsername(email);

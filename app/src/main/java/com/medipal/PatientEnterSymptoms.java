@@ -181,9 +181,6 @@ public class PatientEnterSymptoms extends ActionBarActivity {
             ParseUser tempUser = null;
             ParseUser currentUser = ParseUser.getCurrentUser();
             //get strings from query
-            for (int i = 0; i < 5; i++) {
-                String test12 = results.get(i).getString("Symptoms");
-            }
 
             for (int i = 0; i < results.size(); i++)
             {
@@ -195,34 +192,51 @@ public class PatientEnterSymptoms extends ActionBarActivity {
             }
 
             //fill allRecords
-            for (int i = 0; i < results.size(); i++) {
+            String[][]s_symptomsInRec;
+            for (int i = 1; i < numTerminalIllnesses; i++) {
+                if (organizedSymptoms[i] == null)
+                {
+                    organizedSymptoms[i] = "0,0,0,0,0,0,0,0,0,;";
+                }
                 //records is all records of one symptom
                 String[] records = organizedSymptoms[i].split(",;");
-                String[][] s_symptomsInRec = new String[records.length][9];
-                for (int j = 0; j < records.length; j++) {
+
+                s_symptomsInRec = new String[records.length-1][9];
+                Log.e("Record Length", ""+records.length);
+
+                for (int j = 0; j < records.length-1; j++) {
                     //symptomsInRec is a 2D array with num of patient recs as one dimension and symptoms on another
+                    Log.e("Records:", records[j]);
+
                     s_symptomsInRec[j] = records[j].split(",");
+                    for (int k = 0; k < 9; k++) {
+                        Log.e("Each index patient records", s_symptomsInRec[j][k]);
+                    }
+
                 }
 
+
                 //convert all strings to double values
-                double[][] symptomsInRec = new double[records.length][9];
-                for (int r = 0; r < records.length; r++)
+                double[][] symptomsInRec = new double[records.length-1][9];
+                for (int r = 0; r < records.length-1; r++)
                 {
                     for (int c = 0; c < 9; c++)
                     {
                         symptomsInRec[r][c] = Double.parseDouble(s_symptomsInRec[r][c]);
                     }
+
                 }
 
                 for (int c = 0; c < 9; c++)
                 {
                     double total = 0;
-                    for (int r = 0; c < records.length; r++)
+                    for (int r = 0; r < records.length-1; r++)
                     {
                         total += symptomsInRec[r][c];
                         allRecords[i][c] = total;
                     }
                 }
+                Log.e("Nothing","");
             }
             //get current record values
 

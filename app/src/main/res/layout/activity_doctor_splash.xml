@@ -150,7 +150,7 @@
                             android:layout_width="0dp"
                             android:layout_weight="1"
                             android:layout_height="wrap_content"
-                            android:text="Urgency"
+                            android:text="@string/urgency"
                             android:id="@+id/doctor_splash_radio_button_urgency"
                             android:checked="true" />
 
@@ -158,16 +158,24 @@
                             android:layout_width="0dp"
                             android:layout_weight="1"
                             android:layout_height="wrap_content"
-                            android:text="Recency"
+                            android:text="@string/recency"
                             android:id="@+id/doctor_splash_radio_button_recency"
-                            android:checked="true" />
+                            android:checked="false" />
+
+                        <RadioButton
+                            android:layout_width="0dp"
+                            android:layout_weight="1"
+                            android:layout_height="wrap_content"
+                            android:text="@string/name"
+                            android:id="@+id/doctor_splash_radio_button_name"
+                            android:checked="false" />
                     </RadioGroup>
                 </LinearLayout>
 
                 <Button
                     android:layout_width="fill_parent"
                     android:layout_height="wrap_content"
-                    android:text="View Selected Patient"
+                    android:text="@string/view_selected_patient"
                     android:id="@+id/view_patients_button"
                     android:layout_below="@+id/sort_by_header"
                     android:layout_alignParentLeft="true"

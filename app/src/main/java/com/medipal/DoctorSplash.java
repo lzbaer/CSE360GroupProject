@@ -80,12 +80,18 @@ public class DoctorSplash extends ActionBarActivity {
                 switch(checkedId){
                     case R.id.doctor_splash_radio_button_recency:
                         sortByRecency();
+                        getResultsFromQuery();
                         updateViews();
                         break;
                     case R.id.doctor_splash_radio_button_urgency:
                         sortByUrgency();
+                        getResultsFromQuery();
                         updateViews();
                         break;
+                    case R.id.doctor_splash_radio_button_name:
+                        sortByFirstName();
+                        getResultsFromQuery();
+                        updateViews();
                     default:
                         break;
                 }
@@ -107,18 +113,21 @@ public class DoctorSplash extends ActionBarActivity {
         android.support.v7.app.ActionBar actionBar = getSupportActionBar();
         actionBar.setTitle("Welcome, Dr. " + lastName + "!");
 
+        createQuery();
+        sortByUrgency();
         getResultsFromQuery();
-        sortByRecency();
         updateViews();
 
     }
 
-    private void getResultsFromQuery() {
-        //get patients
+    private void createQuery(){
         query = ParseQuery.getQuery("_User");
         query.whereEqualTo("DoctorID", ParseUser.getCurrentUser().getString("DoctorID"));
         query.whereNotEqualTo("isDoctor", true);
+    }
 
+    private void getResultsFromQuery() {
+        //get patients
         try {
             results = query.find();
         } catch (ParseException e) {
@@ -164,6 +173,11 @@ public class DoctorSplash extends ActionBarActivity {
             query.orderByDescending("urgency");
     }
 
+    private void sortByFirstName() {
+        if(query!=null)
+            query.orderByAscending("First_Name");
+    }
+
     private String[] getPatientNames() {
         String[] patientNames = null;
         if(results!=null){
@@ -184,7 +198,7 @@ public class DoctorSplash extends ActionBarActivity {
         alertQuery.whereEqualTo("DoctorID", ParseUser.getCurrentUser().getString("DoctorID"));
         alertQuery.whereNotEqualTo("isDoctor", true);
         alertQuery.selectKeys(Arrays.asList("urgency"));
-        alertQuery.whereEqualTo("urgency",(int)2);
+        //alertQuery.whereEqualTo("urgency",(int)2);
 
         try {
              significantlyProblematic = query.find();
@@ -195,11 +209,22 @@ public class DoctorSplash extends ActionBarActivity {
         //set spinner
         if(significantlyProblematic!=null) {
             for (int i = 0; i < significantlyProblematic.size(); i++) {
-                stringlist1.add(significantlyProblematic.get(i).getString("First_Name") + " " + significantlyProblematic.get(i).getString("Last_Name") + ": Significantly Problematic!");
+                String str = "";
+                str = significantlyProblematic.get(i).getString("First_Name") + " " + significantlyProblematic.get(i).getString("Last_Name");
+                if(0 == significantlyProblematic.get(i).getInt("urgency")) {
+                    str += ": Stable!";
+                }if(1 == significantlyProblematic.get(i).getInt("urgency")){
+                    str+= ": Problematic!";
+                }else if(2 == significantlyProblematic.get(i).getInt("urgency")){
+                    str+= ": Significantly Problematic!";
+                }
+                stringlist1.add(str);
             }
         }
         //get patients
+        /*
         alertQuery.whereEqualTo("urgency",(int)1);
+
 
         try {
             problematic = query.find();
@@ -213,6 +238,7 @@ public class DoctorSplash extends ActionBarActivity {
                 stringlist1.add(problematic.get(i).getString("First_Name") + " " + problematic.get(i).getString("Last_Name") + ": Problematic!");
             }
         }
+        */
 
         String[] returnstr = stringlist1.toArray(new String[stringlist1.size()]);
         return returnstr;
