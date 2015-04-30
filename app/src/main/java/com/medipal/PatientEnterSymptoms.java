@@ -11,8 +11,13 @@ import android.widget.Button;
 import android.widget.SeekBar;
 import android.widget.Toast;
 
+import com.parse.ParseObject;
 import com.parse.ParseQuery;
 import com.parse.ParseUser;
+
+import java.text.ParseException;
+import java.util.Arrays;
+import java.util.List;
 
 
 public class PatientEnterSymptoms extends ActionBarActivity {
@@ -38,7 +43,7 @@ public class PatientEnterSymptoms extends ActionBarActivity {
 
         ParseUser.getCurrentUser().put("Symptoms", getValuesFromSurveyFields() + ";" + ParseUser.getCurrentUser().getString("Symptoms"));
         ParseUser.getCurrentUser().put("urgency",calculateUrgencyScore());
-        //ParseUser.getCurrentUser().put("predictedIllness", calculateSimilarity());
+        ParseUser.getCurrentUser().put("predictedIllness", calculateSimilarity());
 
         ParseUser.getCurrentUser().saveInBackground();
 
@@ -144,6 +149,117 @@ public class PatientEnterSymptoms extends ActionBarActivity {
         }
 
         return urgency;
+    }
+
+    private int calculateSimilarity()
+    {
+
+        int indexIllness = 0;
+
+        String currentPRecords = ParseUser.getCurrentUser().getString("Symptoms");
+        String[] pRecords = currentPRecords.split(",;");
+        if (pRecords.length >=16)
+{
+        ParseQuery<ParseObject> query = ParseQuery.getQuery("_User");
+        query.whereNotEqualTo("isDoctor", true);
+        query.selectKeys(Arrays.asList("Symptoms", "CurrentIllness"));
+
+        List<ParseObject> results = null;
+        try {
+            results = query.find();
+        } catch (com.parse.ParseException e) {
+            e.printStackTrace();
+        }
+
+
+        int numTerminalIllnesses = 21;
+        String[] organizedSymptoms = new String[numTerminalIllnesses];
+        String[][] s_allRecords = new String[numTerminalIllnesses][9];
+        double[][] allRecords = new double[numTerminalIllnesses][9];
+
+        ParseObject patient = null;
+        ParseUser tempUser = null;
+        ParseUser currentUser = ParseUser.getCurrentUser();
+        //get strings from query
+        for (int i = 0; i < 5; i++) {
+            String test12 = results.get(i).getString("Symptoms");
+        }
+
+        for (int i = 0; i < results.size(); i++)
+        {
+            patient = results.get(i);
+            tempUser = (ParseUser)patient;
+            int index =  results.get(i).getInt("CurrentIllness");
+            String newEntry = tempUser.getString("Symptoms");
+            organizedSymptoms[index] = newEntry + organizedSymptoms[index];
+        }
+
+        //fill allRecords
+        for (int i = 0; i < results.size(); i++) {
+            //records is all records of one symptom
+            String[] records = organizedSymptoms[i].split(",;");
+            String[][] s_symptomsInRec = new String[records.length][9];
+            for (int j = 0; j < records.length; j++) {
+                //symptomsInRec is a 2D array with num of patient recs as one dimension and symptoms on another
+                s_symptomsInRec[j] = records[j].split(",");
+            }
+
+            //convert all strings to double values
+            double[][] symptomsInRec = new double[records.length][9];
+            for (int r = 0; r < records.length; r++)
+            {
+                for (int c = 0; c < 9; c++)
+                {
+                    symptomsInRec[r][c] = Double.parseDouble(s_symptomsInRec[r][c]);
+                }
+            }
+
+            for (int c = 0; c < 9; c++)
+            {
+                double total = 0;
+                for (int r = 0; c < records.length; r++)
+                {
+                    total += symptomsInRec[r][c];
+                    allRecords[i][c] = total;
+                }
+            }
+        }
+        //get current record values
+
+        String currentRecord = pRecords[0];
+
+        String[] cRecord;
+        double[] currentSymptoms = new double[9];
+        cRecord =  currentRecord.split(",");
+        for (int i = 0; i < 9; i++)
+        {
+            currentSymptoms[i] = Double.parseDouble(cRecord[i]);
+        }
+
+        double[][] diffArray = new double [numTerminalIllnesses][9];
+        double[] totalDiff = new double[numTerminalIllnesses];
+        for (int i = 0; i < numTerminalIllnesses; i++)
+        {
+            double totalDiffperIndex = 0;
+            for (int j = 0; j < 9; j++)
+            {
+                diffArray[i][j] = Math.abs(currentSymptoms[j] - allRecords[i][j]);
+                totalDiffperIndex += diffArray[i][j];
+            }
+            totalDiff[i] = totalDiffperIndex;
+        }
+
+        //search through totalDiff to find minimum difference
+        indexIllness = 0;
+        for (int i = 0; i < numTerminalIllnesses; i++)
+        {
+            if(totalDiff[i] < totalDiff[indexIllness])
+            {
+                indexIllness = i;
+            }
+        }
+}
+        return indexIllness;
     }
 
 

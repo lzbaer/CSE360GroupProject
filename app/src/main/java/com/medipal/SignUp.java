@@ -187,6 +187,7 @@ public class SignUp extends ActionBarActivity {
         String email = mEmailView.getText().toString();
         String password = mPasswordView.getText().toString();
         String doctorIdStr = mDoctorIdView.getText().toString();
+        String symptoms = "";
         System.out.print(email);
         boolean cancel = false;
         View focusView = null;
@@ -240,11 +241,11 @@ public class SignUp extends ActionBarActivity {
             // form field with an error.
             focusView.requestFocus();
         } else {
-           registerNewUser(email,password,first,last,doctorIdStr);
+           registerNewUser(email,password,first,last,doctorIdStr,symptoms);
         }
     }
 
-    private void registerNewUser(String email, String password, String first, String last, String doctorIdStr) {
+    private void registerNewUser(String email, String password, String first, String last, String doctorIdStr, String symptoms) {
         //Create Parse
         ParseUser user = new ParseUser();
         user.setUsername(email);
@@ -252,7 +253,13 @@ public class SignUp extends ActionBarActivity {
         user.put("First_Name", first);
         user.put("Last_Name", last);
         user.put("DoctorID", doctorIdStr);
-        user.put("Symptoms", "");
+
+        //GUARD AGAINSTS UNDEFINED VARIABLES
+        user.put("Symptoms", symptoms);
+        final int ZERO = 0;
+        user.put("CurrentIllness", ZERO);
+        user.put("predictedIllness", ZERO);
+        user.put("urgency", ZERO);
         if (mDoctorRadioButton.isChecked()) {
             user.put("isDoctor", true);
             ParseQuery<ParseObject> query = ParseQuery.getQuery("_User");
