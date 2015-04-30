@@ -2,14 +2,19 @@ package com.medipal;
 
 import android.app.ActionBar;
 import android.content.Intent;
+import android.provider.MediaStore;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
+import android.widget.RadioButton;
+import android.widget.RadioGroup;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -23,21 +28,27 @@ public class DoctorSplash extends ActionBarActivity {
 
     //private List<ParseObject> patientsList;
     private ParseObject[] patientsList;
-    //UI elements
-    private String[] inString = null;
-    private TextView mFullNameView;
-    private TextView mEmailView;
-    private TextView mDoctorIdView;
-    private ListView mPatientsListView;
+    private ArrayAdapter<CharSequence> spinnerAdapter= null;
+    private ArrayAdapter<CharSequence> listAdapter= null;
     private List<CharSequence> alerts = null;
     private List<ParseObject> results = null;
     private List<ParseObject> problematic = null;
     private List<ParseObject> significantlyProblematic = null;
     private ParseQuery query =null;
     private ParseQuery alertQuery =null;
+
+    //UI elements
+    private String[] inString = null;
+    private TextView mFullNameView;
+    private TextView mEmailView;
+    private TextView mDoctorIdView;
+    private ListView mPatientsListView;
     private Spinner mSpinner =null;
-    private ArrayAdapter<CharSequence> spinnerAdapter= null;
-    private ArrayAdapter<CharSequence> listAdapter= null;
+    private Button mStartViewPatientInfoButton=null;
+    private RadioGroup mRadioGroup;
+    private RadioButton mRecencyRadioButton = null;
+    private RadioButton mUrgencyRadioButton = null;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -50,6 +61,36 @@ public class DoctorSplash extends ActionBarActivity {
         mDoctorIdView = (TextView) findViewById(R.id.doctor_id);
         mSpinner = (Spinner) findViewById(R.id.spinner);
         mPatientsListView = (ListView) findViewById(R.id.listView);
+        mRadioGroup = (RadioGroup) findViewById(R.id.doctor_splash_radio_group);
+        mUrgencyRadioButton = (RadioButton) findViewById(R.id.doctor_splash_radio_button_urgency);
+        mRecencyRadioButton = (RadioButton) findViewById(R.id.doctor_splash_radio_button_recency);
+        mStartViewPatientInfoButton = (Button) findViewById(R.id.view_patients_button);
+
+        //listeners
+        mStartViewPatientInfoButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startDoctorPatientsList(v);
+            }
+        });
+
+        mRadioGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(RadioGroup group, int checkedId) {
+                switch(checkedId){
+                    case R.id.doctor_splash_radio_button_recency:
+                        sortByRecency();
+                        updateViews();
+                        break;
+                    case R.id.doctor_splash_radio_button_urgency:
+                        sortByUrgency();
+                        updateViews();
+                        break;
+                    default:
+                        break;
+                }
+            }
+        });
 
         //replace placeholder text with user information
         String firstName = ParseUser.getCurrentUser().getString("First_Name") + " "; //add space between names
@@ -66,31 +107,30 @@ public class DoctorSplash extends ActionBarActivity {
         android.support.v7.app.ActionBar actionBar = getSupportActionBar();
         actionBar.setTitle("Welcome, Dr. " + lastName + "!");
 
+        getResultsFromQuery();
+        updateViews();
+
+    }
+
+    private void getResultsFromQuery() {
         //get patients
         query = ParseQuery.getQuery("_User");
-        // String docID = ParseUser.getCurrentUser().getString("DoctorID");
         query.whereEqualTo("DoctorID", ParseUser.getCurrentUser().getString("DoctorID"));
         query.whereNotEqualTo("isDoctor", true);
-        query.selectKeys(Arrays.asList("First_Name", "Last_Name", "urgency", "updatedAt"));
 
         try {
             results = query.find();
         } catch (ParseException e) {
             e.printStackTrace();
         }
+    }
 
-        String[] patientNames=getAlerts();
+    private void updateViews() {
 
-        //set spinner
-        if(results!=null){
-            patientNames = new String[results.size()];
-            for(int i =0; i<patientNames.length;i++){
-                patientNames[i] = results.get(i).getString("First_Name") + " " + results.get(i).getString("Last_Name");
-                //+"/t" + results.get(i).getDouble("urgency");
-            }
-        }
+        //set spinner resource array
+        String[] patientNames = getPatientNames();
 
-        //String[] alertsTexts = {"Raymond Seto: Signifcantyl Progblematic!", "Patrick Michaelsen: Problematic!","Lisa Baer: Problematic!"};
+        //set list view resource array
         String[] alertsTexts = getAlerts();
 
         // Create an ArrayAdapter using the string array and a default spinner layout
@@ -101,49 +141,27 @@ public class DoctorSplash extends ActionBarActivity {
         //create an arrayadapter for list
         listAdapter = new ArrayAdapter<CharSequence>(this,R.layout.text_view,alertsTexts);
         mPatientsListView.setAdapter(listAdapter);
+    }
 
+    private void sortByRecency() {
+        if(query!=null)
+            query.orderByDescending("updatedAt");
+    }
 
+    private void sortByUrgency() {
+        if(query!=null)
+            query.orderByDescending("urgency");
+    }
 
-//        ParseQuery<ParseObject> query = ParseQuery.getQuery("_User");
-//        query.getInBackground("VIAj830EfU", new GetCallback<ParseObject>() {
-//            public void done(ParseObject object, ParseException e) {
-//                if (e == null) {
-//                    String toPrint = object.getString("First_Name");
-//                    Toast.makeText(getApplicationContext(),
-//                            "Name " + toPrint,
-//                            Toast.LENGTH_SHORT).show();
-//                } else {
-//
-//                }
-//            }
-//        });
-
-        /*
-        ParseQuery<ParseObject> query = ParseQuery.getQuery("_User");
-       // String docID = ParseUser.getCurrentUser().getString("DoctorID");
-        query.whereEqualTo("DoctorID", ParseUser.getCurrentUser().getString("DoctorID"));
-        query.whereNotEqualTo("isDoctor",true);
-        query.findInBackground(new FindCallback<ParseObject>() {
-            public void done(List<ParseObject> scoreList, ParseException e) {
-                if (e == null) {
-
-                } else {
-
-                }
-                patientsList = new ParseObject[scoreList.size()];
-                for (int i = 0; i < scoreList.size(); i++) {
-                    Toast.makeText(getApplicationContext(),
-                            "Patient " + (i+1) + " " + scoreList.get(i).getString("First_Name"),
-                            Toast.LENGTH_SHORT).show();
-                    patientsList[i] = scoreList.get(i);
-
-                }
+    private String[] getPatientNames() {
+        String[] patientNames = null;
+        if(results!=null){
+            patientNames = new String[results.size()];
+            for(int i =0; i<patientNames.length;i++){
+                patientNames[i] = results.get(i).getString("First_Name") + " " + results.get(i).getString("Last_Name");
             }
-        });
-                */
-       // System.out.print(patientsList[0]);
-
-
+        }
+        return patientNames;
     }
 
     private String[] getAlerts() {
@@ -152,10 +170,10 @@ public class DoctorSplash extends ActionBarActivity {
 
         //get patients
         alertQuery = ParseQuery.getQuery("_User");
-        query.whereEqualTo("DoctorID", ParseUser.getCurrentUser().getString("DoctorID"));
+        alertQuery.whereEqualTo("DoctorID", ParseUser.getCurrentUser().getString("DoctorID"));
         alertQuery.whereNotEqualTo("isDoctor", true);
-        alertQuery.whereEqualTo("urgency",2);
-        query.selectKeys(Arrays.asList("First_Name", "Last_Name", "urgency"));
+        alertQuery.selectKeys(Arrays.asList("urgency"));
+        alertQuery.whereEqualTo("urgency",(int)2);
 
         try {
              significantlyProblematic = query.find();
@@ -170,8 +188,7 @@ public class DoctorSplash extends ActionBarActivity {
             }
         }
         //get patients
-        alertQuery.whereEqualTo("urgency",1);
-        query.selectKeys(Arrays.asList("First_Name", "Last_Name", "urgency"));
+        alertQuery.whereEqualTo("urgency",(int)1);
 
         try {
             problematic = query.find();
@@ -221,8 +238,12 @@ public class DoctorSplash extends ActionBarActivity {
     }
 
     public void startDoctorPatientsList(View view){
+
+        //store patient
         int position = mSpinner.getSelectedItemPosition();
-        String objectId = results.get(position).getString("objectId");
+        ParseObject patient = results.get(position);
+        String objectId = patient.getObjectId();
+
         Intent intent = new Intent(this, DoctorViewPatientInfoPage.class);
         intent.putExtra("objectId",objectId);
         startActivity(intent);

@@ -10,8 +10,8 @@
     <string name="title_activity_patient_splash">Welcome, PatientName!</string>
     <string name="title_activity_patient_enter_symptoms">Create a New Log</string>
     <string name="title_activity_patient_info_page">Personal Information:</string>
-    <string name="title_activity_doctor_view_patient_info_page">PatientName\'s Personal Information:</string>
-    <string name="title_activity_patient_edit_info_page">Update Personal Information:</string>
+    <string name="title_activity_doctor_view_patient_info_page">View Patient:</string>
+    <string name="title_activity_patient_edit_info_page">Update Information:</string>
     <string name="title_activity_sign_up">Sign Up for Medipal</string>
 
     <!-- Welcome screen -->
@@ -64,7 +64,7 @@
     <string name="doctor_id_tool_tip">Enter the Doctor ID provided by your medical professional</string>
     <string name="placeholder_text">Placeholder Text</string>
     <string name="update_information_button">Update Information</string>
-    <string name="known_conditions_prompt">Known Conditions:</string>
+    <string name="known_conditions_prompt">Known Condition:</string>
     <string name="doctor_id_edit_prompt">Doctor ID:</string>
     <string name="current_name">Name:</string>
     <string name="current_email">Email:</string>
@@ -74,6 +74,8 @@
     <string name="error_unknown">Unknown error occured!</string>
     <string name="patient_information_header">Your Patients:</string>
     <string name="alerts">Your Alerts:</string>
+    <string name="patient_info_header">Patient Information:</string>
+    <string name="potential_condition_header">Potential Condition:</string>
 
     <string-array name="conditions_array">
         <item>No Condition</item>
