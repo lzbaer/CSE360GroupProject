@@ -27,7 +27,8 @@
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
                 android:nestedScrollingEnabled="true"
-                android:id="@+id/linear_layout">
+                android:id="@+id/linear_layout"
+                >
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -77,7 +78,11 @@
                     android:layout_height="wrap_content"
                     android:id="@+id/condition_spinner"
                     android:spinnerMode="dropdown"
-                    android:clickable="false"/>
+                    android:clickable="false"
+                    android:focusable="false"
+
+
+                    />
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -91,7 +96,17 @@
                     android:layout_height="wrap_content"
                     android:id="@+id/potential_spinner"
                     android:spinnerMode="dropdown"
-                    android:clickable="false"/>
+                    android:clickable="false"
+                    android:focusable="false"
+
+                    />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textAppearance="?android:attr/textAppearanceMedium"
+                    android:text="@string/placeholder_text"
+                    android:id="@+id/current_symptoms" />
 
             </LinearLayout>
         </ScrollView>

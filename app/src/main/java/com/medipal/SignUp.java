@@ -192,16 +192,26 @@ public class SignUp extends ActionBarActivity {
         View focusView = null;
 
         //check for a valid first name
-            if (TextUtils.isEmpty(first)) {
-                mFirstNameView.setError(getString(R.string.error_field_required));
-                focusView = mFirstNameView;
-                cancel = true;
+        if (TextUtils.isEmpty(first)) {
+            mFirstNameView.setError(getString(R.string.error_field_required));
+            focusView = mFirstNameView;
+            cancel = true;
+        }
+        if (!isNameValid(first)) {
+            mFirstNameView.setError(getString(R.string.error_invalid_name));
+            focusView = mFirstNameView;
+            cancel = true;
         }
 
         //check for a valid last name
         if (TextUtils.isEmpty(last)) {
             mLastNameView.setError(getString(R.string.error_field_required));
             focusView = mLastNameView;
+            cancel = true;
+        }
+        if (!isNameValid(last)) {
+            mLastNameView.setError(getString(R.string.error_invalid_name));
+            focusView = mFirstNameView;
             cancel = true;
         }
 
@@ -269,40 +279,6 @@ public class SignUp extends ActionBarActivity {
             int id = service.size()+1;
             user.put("DoctorID", Integer.toString(id));
             user.saveInBackground();
-            /*
-            ParseObject serviceUser = service.get(0);
-            String load = serviceUser.getString("DoctorID");
-            Toast.makeText(getBaseContext(),
-                    ("" + load),
-                    Toast.LENGTH_SHORT).show();
-            serviceUser.put("DoctorID","cat");
-            serviceUser.saveInBackground();
-            load = serviceUser.getString("DoctorID");
-            Toast.makeText(getBaseContext(),
-                    ("" + load),
-                    Toast.LENGTH_SHORT).show();*/
-/*
-            query.getInBackground("l6pq5FxjcF", new GetCallback<ParseObject>() {
-                public void done(ParseObject object, ParseException e) {
-                    if (e == null) {
-                        final int toLoad = Integer.parseInt(object.getString("DoctorID"));
-                        load = toLoad;
-                        object.put("DoctorID", Integer.toString((Integer.parseInt(object.getString("DoctorID") + 1))));
-                        object.put("DoctorID", "mouse");
-                        object.saveInBackground();
-                        Toast.makeText(getBaseContext(),
-                                ("" + load),
-                                Toast.LENGTH_SHORT).show();
-                    } else {
-                        // something went wrong
-                    }
-                }
-            });
-
-            user.put("DoctorID", Integer.toString(load));
-            user.saveInBackground();*/
-
-
         }
         else
         {
@@ -331,6 +307,9 @@ public class SignUp extends ActionBarActivity {
                 }
             }
         });
+    }
+    private boolean isNameValid(String name) {
+        return name.matches("[a-zA-Z]+") && name.substring(0,1).matches("[A-Z]+");
     }
 
     private boolean isEmailValid(String email) {

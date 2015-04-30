@@ -129,11 +129,21 @@ public class DoctorSplash extends ActionBarActivity {
 
         //set spinner resource array
         String[] patientNames = getPatientNames();
+        if(patientNames.length==0){
+            patientNames= new String[] { "No Patients Found!"};
+        }
 
         //set list view resource array
         String[] alertsTexts = getAlerts();
+        if(alertsTexts.length==0){
+            alertsTexts= new String[] { "No Alerts Found!"};
+        }
 
         // Create an ArrayAdapter using the string array and a default spinner layout
+        if(spinnerAdapter!=null){
+            spinnerAdapter=null;
+            mSpinner.setAdapter(null);
+        }
         spinnerAdapter = new ArrayAdapter<CharSequence>(this,android.R.layout.simple_spinner_item,patientNames);
         spinnerAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         mSpinner.setAdapter(spinnerAdapter);

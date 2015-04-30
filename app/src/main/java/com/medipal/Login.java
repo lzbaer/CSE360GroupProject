@@ -110,6 +110,9 @@ public class Login extends ActionBarActivity {
                         if (user != null) {
                             // If user exist and authenticated, send user to Welcome.class
                             Intent intent;
+                            Toast.makeText(getApplicationContext(),
+                                    getString(R.string.attempting_login),
+                                    Toast.LENGTH_LONG).show();
                             if(user.getBoolean("isDoctor"))
                             {
                                 intent = new Intent(
@@ -127,12 +130,21 @@ public class Login extends ActionBarActivity {
                                     getString(R.string.login_successful),
                                     Toast.LENGTH_SHORT).show();
                             finish();
-                        } else {
+                        } else if(e.getCode()== ParseException.OBJECT_NOT_FOUND) {
                             Toast.makeText(
                                     getApplicationContext(),
                                     getString(R.string.error_incorrect_login),
                                     Toast.LENGTH_SHORT).show();
-                        }
+                        }else if(e.getCode() == ParseException.CONNECTION_FAILED){
+                            Toast.makeText(getApplicationContext(),
+                                    getString(R.string.error_connection_failed), Toast.LENGTH_SHORT)
+                                    .show();
+                        } else {
+                        Toast.makeText(getApplicationContext(),
+                                getString(R.string.error_unknown), Toast.LENGTH_SHORT)
+                                .show();
+                    }
+
                     }
                 });
 

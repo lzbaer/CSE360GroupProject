@@ -6,6 +6,8 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Spinner;
 import android.widget.TextView;
@@ -14,6 +16,8 @@ import com.parse.ParseException;
 import com.parse.ParseObject;
 import com.parse.ParseQuery;
 import com.parse.ParseUser;
+
+import org.w3c.dom.Text;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -28,6 +32,7 @@ public class DoctorViewPatientInfoPage extends ActionBarActivity {
     private TextView mFullNameView;
     private Spinner mConditionSpinner;
     private Spinner mPotentialSpinner;
+    private TextView mCurrentSymptoms;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,6 +47,9 @@ public class DoctorViewPatientInfoPage extends ActionBarActivity {
         mFullNameView = (TextView) findViewById(R.id.full_name);
         mConditionSpinner = (Spinner) findViewById(R.id.condition_spinner);
         mPotentialSpinner = (Spinner) findViewById(R.id.potential_spinner);
+        mCurrentSymptoms = (TextView) findViewById(R.id.current_symptoms);
+
+
 
         //build some GUI
         ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this,
@@ -68,12 +76,19 @@ public class DoctorViewPatientInfoPage extends ActionBarActivity {
         String lastName = patient.getString("Last_Name");
         int conditionPosition = patient.getInt("CurrentIllness");
         int potentialConditionPosition = patient.getInt("predictedIllness");
+        int urgency = patient.getInt("urgency");
+        final String[] urgencyStrings = {"Stable","Problematic", "Significantly Problematic" };
+        String currentSymptoms = "Current Symptoms: " + urgencyStrings[urgency];
 
         //set fields
-        mFullNameView.setText(firstName+lastName);
+        mFullNameView.setText(firstName + lastName);
         mConditionSpinner.setSelection(conditionPosition);
         mPotentialSpinner.setSelection(potentialConditionPosition);
+        mCurrentSymptoms.setText(currentSymptoms);
+
     }
+
+
 
 
     @Override
@@ -98,4 +113,10 @@ public class DoctorViewPatientInfoPage extends ActionBarActivity {
 
         return super.onOptionsItemSelected(item);
     }
+
+    public void giveUpFocus(View view ){
+        view.clearFocus();
+    }
+
+
 }
