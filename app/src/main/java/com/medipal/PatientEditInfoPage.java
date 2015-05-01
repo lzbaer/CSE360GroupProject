@@ -3,6 +3,7 @@ package com.medipal;
 import android.content.Intent;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -81,18 +82,32 @@ public class PatientEditInfoPage extends ActionBarActivity {
     }
 
     private void attemptUpdate() {
+
         String doctorId = mDoctorIdView.getText().toString();
         int conditionPosition = mConditionSpinner.getSelectedItemPosition();
         ParseUser currentUser = ParseUser.getCurrentUser();
-        currentUser.put("DoctorID",doctorId);
-        currentUser.put("CurrentIllness",conditionPosition);
-        currentUser.saveInBackground();
+        //check for a valid doctorID
+        View focusView = null;
+        boolean cancel = false;
+        if (doctorId.length() == 0) {
+            mDoctorIdView.setError(getString(R.string.error_field_required));
+            focusView = mDoctorIdView;
+            cancel = true;
+        }
+        if (cancel) {
+            // There was an error; don't attempt login and focus the first
+            // form field with an error.
+            focusView.requestFocus();
+        } else {
+            currentUser.put("DoctorID",doctorId);
+            currentUser.put("CurrentIllness",conditionPosition);
+            currentUser.saveInBackground();
 
-        Toast.makeText(getApplicationContext(),
-                getString(R.string.info_updated),
-                Toast.LENGTH_SHORT).show();
-
-        finish();
+            Toast.makeText(getApplicationContext(),
+                    getString(R.string.info_updated),
+                    Toast.LENGTH_SHORT).show();
+            finish();
+        }
     }
 
 

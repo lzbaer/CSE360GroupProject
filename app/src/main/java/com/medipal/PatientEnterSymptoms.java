@@ -210,7 +210,7 @@ public class PatientEnterSymptoms extends ActionBarActivity {
 
                     s_symptomsInRec[j] = records[j].split(",");
                     for (int k = 0; k < 9; k++) {
-                        Log.e("Each index patient records", s_symptomsInRec[j][k]);
+                        //Log.e("Each index patient records", s_symptomsInRec[j][k]);
                     }
 
                 }
@@ -263,7 +263,7 @@ public class PatientEnterSymptoms extends ActionBarActivity {
                 }
                 totalDiff[i] = totalDiffperIndex;
                 Log.e("index",""+i);
-                Log.e("Total difference at index", "" + totalDiff[i]);
+                //Log.e("Total difference at index", "" + totalDiff[i]);
 
             }
 
