@@ -73,7 +73,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:id="@+id/condition_spinner"
-                android:spinnerMode="dropdown"
+                android:spinnerMode="dialog"
                 android:clickable="false"
                 android:focusable="false"
 
@@ -91,7 +91,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:id="@+id/potential_spinner"
-                android:spinnerMode="dropdown"
+                android:spinnerMode="dialog"
                 android:clickable="false"
                 android:focusable="false"
 

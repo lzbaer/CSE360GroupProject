@@ -74,7 +74,15 @@ public class DoctorViewPatientInfoPage extends ActionBarActivity {
         ParseObject patient = results.get(0);
 
         //get array of symptom arrays
-        ArrayList<String[]> patientRecords = getPatientRecords(patient.getString("Symptoms"));
+        if (patient.getString("Symptoms").equals("")) {
+            // DO NOTHING
+        }
+        else {
+            ArrayList<String[]> patientRecords = getPatientRecords(patient.getString("Symptoms"));
+            PatientRecordsAdapter patientRecordsAdapter = new PatientRecordsAdapter(this,patientRecords);
+            mPatientRecordsListView.setAdapter(patientRecordsAdapter);
+        }
+
         /*String str = "";
         for(int i=0;i<15;i++){
             String[] dummyData=new String[9];
@@ -88,8 +96,7 @@ public class DoctorViewPatientInfoPage extends ActionBarActivity {
         Log.i("Dummy Array",str);*/
 
         //build a records list adapter
-        PatientRecordsAdapter patientRecordsAdapter = new PatientRecordsAdapter(this,patientRecords);
-        mPatientRecordsListView.setAdapter(patientRecordsAdapter);
+
 
         //replace placeholder text with user information
         String firstName = patient.getString("First_Name") + " "; //add space between names
