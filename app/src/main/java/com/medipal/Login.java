@@ -16,16 +16,16 @@ import android.widget.TextView;
 import android.widget.Toast;
 import com.parse.*;
 
+/**
+ * login the user, ensure valid credentials and input
+ * created by Patrick, Raymond, Ankit
+ */
 
 public class Login extends ActionBarActivity {
 
     //UI elements
     private AutoCompleteTextView mEmailView;
     private EditText mPasswordView;
-    private View mProgressView;
-    private View mEmailLoginFormView;
-    private View mSignOutButtons;
-    private View mLoginFormView;
     private Button mEmailSignInButton;
 
     @Override
@@ -35,7 +35,6 @@ public class Login extends ActionBarActivity {
 
         // Set up the login form.
         mEmailView = (AutoCompleteTextView) findViewById(R.id.email);
-        // TODO populateAutoComplete();
         mPasswordView = (EditText) findViewById(R.id.password);
         mPasswordView.setOnEditorActionListener(new TextView.OnEditorActionListener() {
             @Override
@@ -98,10 +97,12 @@ public class Login extends ActionBarActivity {
             focusView.requestFocus();
             mEmailSignInButton.setEnabled(true);
         } else {
+            //start authenticate if not cancel
             authenticateLogin(email, password);
         }
     }
 
+    //check to make sure login works
     private void authenticateLogin(String email, String password){
 
         // Send data to Parse.com for verification
@@ -109,28 +110,30 @@ public class Login extends ActionBarActivity {
                 new LogInCallback() {
                     public void done(ParseUser user, ParseException e) {
                         if (user != null) {
-                            // If user exist and authenticated, send user to Welcome.class
+                            // If user exist and authenticated, send user to splash
                             Intent intent;
                             Toast.makeText(getApplicationContext(),
                                     getString(R.string.attempting_login),
                                     Toast.LENGTH_LONG).show();
+                            //filter between doctor/patient
                             if(user.getBoolean("isDoctor"))
-                            {
+                            {//if doctor set to doctorsplash
                                 intent = new Intent(
                                         Login.this,
                                         DoctorSplash.class);
-
                             }
-                            else {
+                            else { //if not doctor set to patientsplash
                                 intent = new Intent(
                                         Login.this,
                                         PatientSplash.class);
                             }
+                            //start whichever
                             startActivity(intent);
                             Toast.makeText(getApplicationContext(),
                                     getString(R.string.login_successful),
                                     Toast.LENGTH_SHORT).show();
-                            finish();
+                            finish();//end login activity
+                            //handle errors
                         } else if(e.getCode()== ParseException.OBJECT_NOT_FOUND) {
                             Toast.makeText(
                                     getApplicationContext(),
@@ -150,10 +153,12 @@ public class Login extends ActionBarActivity {
                 });
     }
 
+    //ensure valid entry before wasting server processing
     private boolean isEmailValid(String email) {
         return email.contains("@") && email.length() < 256;
     }
 
+    //ensure valid entry before wasting server processing
     private boolean isPasswordValid(String password) {
         return password.length() > 4 && password.length() < 256;
     }

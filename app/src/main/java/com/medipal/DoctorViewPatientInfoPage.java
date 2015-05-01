@@ -24,9 +24,18 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+/**
+ * display patient info to doctor
+ * displays known condition
+ * potential condition
+ * name
+ * past records
+ * created by Patrick
+ */
 
 public class DoctorViewPatientInfoPage extends ActionBarActivity {
 
+    //instance variables (passed from intent)
     private String objectId;
 
     //UI elements
@@ -78,25 +87,11 @@ public class DoctorViewPatientInfoPage extends ActionBarActivity {
             // DO NOTHING
         }
         else {
+            //set adapters if there are records for patient
             ArrayList<String[]> patientRecords = getPatientRecords(patient.getString("Symptoms"));
             PatientRecordsAdapter patientRecordsAdapter = new PatientRecordsAdapter(this,patientRecords);
             mPatientRecordsListView.setAdapter(patientRecordsAdapter);
         }
-
-        /*String str = "";
-        for(int i=0;i<15;i++){
-            String[] dummyData=new String[9];
-            for(int j=0;j<9;j++){
-                dummyData[j] = ""+(Math.round((Math.random()*10)));
-                str+=dummyData[j]+", ";
-            }
-            str+="\n ";
-            patientRecords.add(dummyData);
-        }
-        Log.i("Dummy Array",str);*/
-
-        //build a records list adapter
-
 
         //replace placeholder text with user information
         String firstName = patient.getString("First_Name") + " "; //add space between names
@@ -115,6 +110,12 @@ public class DoctorViewPatientInfoPage extends ActionBarActivity {
 
     }
 
+    /**
+     * method by Raymond
+     * @param symptoms
+     * @return return an arraylist of strings[]
+     * array list holds n records[], records[] holds 9 symptoms
+     */
     private ArrayList<String[]> getPatientRecords(String symptoms) {
         ArrayList<String[]> listOfSubmissions = new ArrayList<String[]>();
         String[] indivSubmissions = symptoms.split(",;");
@@ -149,10 +150,4 @@ public class DoctorViewPatientInfoPage extends ActionBarActivity {
 
         return super.onOptionsItemSelected(item);
     }
-
-    public void giveUpFocus(View view ){
-        view.clearFocus();
-    }
-
-
 }

@@ -37,14 +37,6 @@
                 android:value="com.medipal.Login" />
         </activity>
         <activity
-            android:name=".DoctorAlerts"
-            android:label="@string/title_activity_doctor_alerts"
-            android:parentActivityName=".DoctorSplash" >
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.medipal.DoctorSplash" />
-        </activity>
-        <activity
             android:name=".DoctorPatientsList"
             android:label="@string/title_activity_doctor_patients_list" >
             android:parentActivityName=".DoctorSplash" >

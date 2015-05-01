@@ -10,6 +10,11 @@ import android.view.View;
 import android.widget.Button;
 import com.parse.*;
 
+/**
+ * patient landing
+ * may start edit info or submit survey
+ * created by Patrick
+ */
 
 public class PatientSplash extends ActionBarActivity {
 
@@ -49,12 +54,6 @@ public class PatientSplash extends ActionBarActivity {
         });
     }
 
-    private String getFirstNameByUserId(String userId) {
-        String firstName="Patient";
-            firstName = ParseUser.getCurrentUser().getString("First_Name");
-        return firstName;
-    }
-
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
@@ -75,20 +74,17 @@ public class PatientSplash extends ActionBarActivity {
             return true;
         }
 
-
         return super.onOptionsItemSelected(item);
     }
 
     public void attemptSendSurvey()
     {
         Intent intent = new Intent(this, PatientEnterSymptoms.class);
-        intent.putExtra("userId",userId);
         startActivity(intent);
     }
 
     private void attemptUpdateInfo() {
         Intent intent = new Intent(this, PatientEditInfoPage.class);
-        intent.putExtra("userId",userId);
         startActivity(intent);
     }
 

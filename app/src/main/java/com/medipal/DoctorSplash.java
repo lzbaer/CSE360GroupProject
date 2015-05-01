@@ -23,9 +23,14 @@ import java.util.*;
 import com.parse.*;
 import com.parse.codec.CharEncoding;
 
-
+/**
+ * DoctorSplash class allows for doctor to view list of patients,
+ * alerts, and select and individual patient for viewing
+ * created by Patrick, Tianyan
+ */
 public class DoctorSplash extends ActionBarActivity {
 
+    //parse elements
     private ParseObject[] patientsList;
     private ArrayAdapter<CharSequence> listAdapter= null;
     private List<CharSequence> alerts = null;
@@ -42,7 +47,7 @@ public class DoctorSplash extends ActionBarActivity {
     private TextView mDoctorIdView;
     private ListView mPatientsListView;
     private Spinner mSpinner =null;
-    private Button mStartViewPatientInfoButton=null;
+    private Button mStartDoctorViewPatientInfoPageButton=null;
     private RadioGroup mRadioGroup;
     private RadioButton mRecencyRadioButton = null;
     private RadioButton mUrgencyRadioButton = null;
@@ -53,7 +58,7 @@ public class DoctorSplash extends ActionBarActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_doctor_splash);
 
-        //set up account information
+        //pull GUI elements from R code
         mFullNameView = (TextView) findViewById(R.id.full_name);
         mEmailView = (TextView) findViewById(R.id.email);
         mDoctorIdView = (TextView) findViewById(R.id.doctor_id);
@@ -62,16 +67,17 @@ public class DoctorSplash extends ActionBarActivity {
         mRadioGroup = (RadioGroup) findViewById(R.id.doctor_splash_radio_group);
         mUrgencyRadioButton = (RadioButton) findViewById(R.id.doctor_splash_radio_button_urgency);
         mRecencyRadioButton = (RadioButton) findViewById(R.id.doctor_splash_radio_button_recency);
-        mStartViewPatientInfoButton = (Button) findViewById(R.id.view_patients_button);
+        mStartDoctorViewPatientInfoPageButton = (Button) findViewById(R.id.view_patients_button);
 
-        //listeners
-        mStartViewPatientInfoButton.setOnClickListener(new View.OnClickListener() {
+        //set action listeners
+        //view selected patient listener
+        mStartDoctorViewPatientInfoPageButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startDoctorPatientsList(v);
+                startDoctorViewPatientInfoPage(v);
             }
         });
-
+        //sort radio button listeners
         mRadioGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(RadioGroup group, int checkedId) {
@@ -111,6 +117,7 @@ public class DoctorSplash extends ActionBarActivity {
         android.support.v7.app.ActionBar actionBar = getSupportActionBar();
         actionBar.setTitle("Welcome, Dr. " + lastName + "!");
 
+        //initialize query, sort query, get results, set adapters
         createQuery();
         sortByUrgency();
         getResultsFromQuery();
@@ -118,6 +125,7 @@ public class DoctorSplash extends ActionBarActivity {
 
     }
 
+    //creates a parse query
     private void createQuery(){
         query = ParseQuery.getQuery("_User");
         query.whereEqualTo("DoctorID", ParseUser.getCurrentUser().getString("DoctorID"));
@@ -133,6 +141,7 @@ public class DoctorSplash extends ActionBarActivity {
         }
     }
 
+    //refresh adapter views
     private void updateViews() {
 
         //set spinner resource array
@@ -147,10 +156,7 @@ public class DoctorSplash extends ActionBarActivity {
             alertsTexts= new String[] { "No Alerts Found!"};
         }
 
-        // Create an ArrayAdapter using the string array and a default spinner layout
-//        if(spinnerAdapter!=null){
-//            spinnerAdapter.clear();
-//        }
+        //create spinner adapter
         ArrayAdapter<CharSequence>spinnerAdapter = new ArrayAdapter<CharSequence>(this,android.R.layout.simple_spinner_item,patientNames);
         spinnerAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         mSpinner.setAdapter(spinnerAdapter);
@@ -161,6 +167,7 @@ public class DoctorSplash extends ActionBarActivity {
         mPatientsListView.setAdapter(listAdapter);
     }
 
+    //sorting methods
     private void sortByRecency() {
         if(query!=null)
             query.orderByDescending("updatedAt");
@@ -176,6 +183,7 @@ public class DoctorSplash extends ActionBarActivity {
             query.orderByAscending("First_Name");
     }
 
+    //get from results an array of patient names
     private String[] getPatientNames() {
         String[] patientNames = null;
         if(results!=null){
@@ -187,24 +195,25 @@ public class DoctorSplash extends ActionBarActivity {
         return patientNames;
     }
 
+    //get from results an array of patient alerts
     private String[] getAlerts() {
 
         ArrayList<String> stringlist1 = new ArrayList<String>();
 
-        //get patients
+        //create query for alerts
         alertQuery = ParseQuery.getQuery("_User");
         alertQuery.whereEqualTo("DoctorID", ParseUser.getCurrentUser().getString("DoctorID"));
         alertQuery.whereNotEqualTo("isDoctor", true);
         alertQuery.selectKeys(Arrays.asList("urgency"));
-        //alertQuery.whereEqualTo("urgency",(int)2);
 
+        //get results
         try {
              significantlyProblematic = query.find();
         } catch (ParseException e) {
             e.printStackTrace();
         }
 
-        //set spinner
+        //concatenate strings to represent urgency
         if(significantlyProblematic!=null) {
             for (int i = 0; i < significantlyProblematic.size(); i++) {
                 String str = "";
@@ -219,24 +228,6 @@ public class DoctorSplash extends ActionBarActivity {
                 stringlist1.add(str);
             }
         }
-        //get patients
-        /*
-        alertQuery.whereEqualTo("urgency",(int)1);
-
-
-        try {
-            problematic = query.find();
-        } catch (ParseException e) {
-            e.printStackTrace();
-        }
-
-        //set spinner
-        if(problematic!=null) {
-            for (int i = 0; i < problematic.size(); i++) {
-                stringlist1.add(problematic.get(i).getString("First_Name") + " " + problematic.get(i).getString("Last_Name") + ": Problematic!");
-            }
-        }
-        */
 
         String[] returnstr = stringlist1.toArray(new String[stringlist1.size()]);
         return returnstr;
@@ -265,27 +256,26 @@ public class DoctorSplash extends ActionBarActivity {
         return super.onOptionsItemSelected(item);
     }
 
-    public void startDoctorPatientsList(View view){
+    //go to selected patient
+    public void startDoctorViewPatientInfoPage(View view){
 
         //start view patient info activity if results is not empty
         if(results.size()>0){
-            //store patient
+            //get object id from patient currently selected
             int position = mSpinner.getSelectedItemPosition();
             ParseObject patient = results.get(position);
             String objectId = patient.getObjectId();
 
+            //start new activity and pass objectId as extra
             Intent intent = new Intent(this, DoctorViewPatientInfoPage.class);
             intent.putExtra("objectId",objectId);
             startActivity(intent);
         }else{
+            //this does not work if the doctor does not yet have patients
             Toast.makeText(
                     getBaseContext(),
                     getString(R.string.error_no_patients),
                     Toast.LENGTH_SHORT).show();
         }
-    }
-    public String[] getAnArray(String[] str){
-        inString = str.clone();
-        return str;
     }
 }

@@ -73,21 +73,21 @@ ADDED from AndroidManifest.xml:31:9
 		ADDED from AndroidManifest.xml:34:13
 	android:name
 		ADDED from AndroidManifest.xml:32:13
-activity#com.medipal.DoctorAlerts
+activity#com.medipal.DoctorPatientsList
 ADDED from AndroidManifest.xml:39:9
 	android:label
 		ADDED from AndroidManifest.xml:41:13
-	android:parentActivityName
-		ADDED from AndroidManifest.xml:42:13
 	android:name
 		ADDED from AndroidManifest.xml:40:13
-activity#com.medipal.DoctorPatientsList
+activity#com.medipal.PatientSplash
 ADDED from AndroidManifest.xml:47:9
 	android:label
 		ADDED from AndroidManifest.xml:49:13
+	android:parentActivityName
+		ADDED from AndroidManifest.xml:50:13
 	android:name
 		ADDED from AndroidManifest.xml:48:13
-activity#com.medipal.PatientSplash
+activity#com.medipal.PatientEnterSymptoms
 ADDED from AndroidManifest.xml:55:9
 	android:label
 		ADDED from AndroidManifest.xml:57:13
@@ -95,7 +95,7 @@ ADDED from AndroidManifest.xml:55:9
 		ADDED from AndroidManifest.xml:58:13
 	android:name
 		ADDED from AndroidManifest.xml:56:13
-activity#com.medipal.PatientEnterSymptoms
+activity#com.medipal.PatientInfoPage
 ADDED from AndroidManifest.xml:63:9
 	android:label
 		ADDED from AndroidManifest.xml:65:13
@@ -103,34 +103,26 @@ ADDED from AndroidManifest.xml:63:9
 		ADDED from AndroidManifest.xml:66:13
 	android:name
 		ADDED from AndroidManifest.xml:64:13
-activity#com.medipal.PatientInfoPage
+activity#com.medipal.DoctorViewPatientInfoPage
 ADDED from AndroidManifest.xml:71:9
 	android:label
 		ADDED from AndroidManifest.xml:73:13
-	android:parentActivityName
-		ADDED from AndroidManifest.xml:74:13
 	android:name
 		ADDED from AndroidManifest.xml:72:13
-activity#com.medipal.DoctorViewPatientInfoPage
+activity#com.medipal.PatientEditInfoPage
 ADDED from AndroidManifest.xml:79:9
 	android:label
 		ADDED from AndroidManifest.xml:81:13
 	android:name
 		ADDED from AndroidManifest.xml:80:13
-activity#com.medipal.PatientEditInfoPage
+activity#com.medipal.SignUp
 ADDED from AndroidManifest.xml:87:9
 	android:label
 		ADDED from AndroidManifest.xml:89:13
+	android:parentActivityName
+		ADDED from AndroidManifest.xml:90:13
 	android:name
 		ADDED from AndroidManifest.xml:88:13
-activity#com.medipal.SignUp
-ADDED from AndroidManifest.xml:95:9
-	android:label
-		ADDED from AndroidManifest.xml:97:13
-	android:parentActivityName
-		ADDED from AndroidManifest.xml:98:13
-	android:name
-		ADDED from AndroidManifest.xml:96:13
 uses-sdk
 INJECTED from AndroidManifest.xml:0:0 reason: use-sdk injection requested
 MERGED from com.android.support:appcompat-v7:21.0.3:15:5

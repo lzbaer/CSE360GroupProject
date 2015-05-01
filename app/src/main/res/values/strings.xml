@@ -20,6 +20,13 @@
     <string name="splash_description">splash logo</string>
     <string name="login">Login</string>
     <string name="sign_up">Sign up!</string>
+    <string name="error_signed_in_sign_up">Sign out before registering new account!</string>
+    <string name="logout_successful">Logout successful!</string>
+    <string name="error_connection_failed">Could not reach server!</string>
+    <string name="error_unknown">Unknown error occurred!</string>
+    <string name="error_checked_id_invalid">err:checked_id_invalid: Radio button selection not possible!</string>
+    <string name="sign_up_successful">Sign up successful!</string>
+    <string name="error_sign_up_failed">Sign up failed!</string>
 
     <!-- Login screen  -->
     <string name="prompt_email">Email Address</string>
@@ -31,6 +38,7 @@
     <string name="error_field_required">This field is required!</string>
     <string name="error_invalid_password">Invalid password!</string>
     <string name="login_successful">Login successful!</string>
+    <string name="attempting_login">Attempting login... please wait...</string>
 
     <!-- Patient enter symptoms screen -->
     <string name="pain">Pain (10 is worst possible pain)</string>
@@ -58,9 +66,9 @@
     <string name="error_incorrect_doctor_id">This doctor does not exist!</string>
     <string name="error_invalid_doctor_id">Invalid Doctor ID!</string>
     <string name="doctor_id_creation_prompt">Your Doctor ID will be automatically assigned to you upon account creation. Please make a note of your ID for your own reference. If you ever forget your ID, you can locate it on your home page.</string>
-    <string name="error_checked_id_invalid">err:checked_id_invalid: Radio button selection not possible!</string>
-    <string name="sign_up_successful">Sign up successful!</string>
-    <string name="error_sign_up_failed">Sign up failed!</string>
+    <string name="error_invalid_name">Name is invalid!</string>
+
+    <!--edit info strings-->
     <string name="account_information_header">Account Information:</string>
     <string name="doctor_id_tool_tip">Enter the Doctor ID provided by your medical professional</string>
     <string name="placeholder_text">Placeholder Text</string>
@@ -69,23 +77,20 @@
     <string name="doctor_id_edit_prompt">Doctor ID:</string>
     <string name="current_name">Name:</string>
     <string name="current_email">Email:</string>
-    <string name="error_signed_in_sign_up">Sign out before registering new account!</string>
-    <string name="logout_successful">Logout successful!</string>
-    <string name="error_connection_failed">Could not reach server!</string>
-    <string name="error_unknown">Unknown error occurred!</string>
+    <string name="info_updated">Information updated!</string>
+
+    <!--view patients-->
     <string name="patient_information_header">Your Patients:</string>
     <string name="alerts">Your Alerts:</string>
     <string name="patient_info_header">Patient Information:</string>
     <string name="potential_condition_header">Potential Condition:</string>
-    <string name="attempting_login">Attempting login... please wait...</string>
-    <string name="error_invalid_name">Name is invalid!</string>
     <string name="error_no_patients">You don\'t have any patients!</string>
-    <string name="info_updated">Information updated!</string>
     <string name="urgency">Urgent</string>
     <string name="recency">Recent</string>
     <string name="name">Name</string>
     <string name="view_selected_patient">View Selected Patient</string>
 
+    <!--spinner conditions-->
     <string-array name="conditions_array">
         <item>No Condition</item>
         <item>ALS (Lou Gehrig\'s Disease)</item>

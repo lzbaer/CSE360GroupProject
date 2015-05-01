@@ -26,6 +26,15 @@ import com.parse.*;
 import java.util.Arrays;
 import java.util.List;
 
+/**
+ * allow user to sign up as doctor/patient
+ * prevent invalid inputs in fields
+ * prevent duplicate users
+ * GUI created by Patrick
+ * parse by Ankit
+ * data validation methods by Raymond
+ *
+ */
 
 public class SignUp extends ActionBarActivity {
 
@@ -49,11 +58,6 @@ public class SignUp extends ActionBarActivity {
     //set up animation
     private int mAnimationDuration;
 
-    private int load;
-
-    public SignUp() {
-    }
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -63,7 +67,6 @@ public class SignUp extends ActionBarActivity {
         mFirstNameView = (EditText) findViewById(R.id.first_name);
         mLastNameView=(EditText) findViewById(R.id.last_name);
         mEmailView = (AutoCompleteTextView) findViewById(R.id.email);
-        // TODO populateAutoComplete();
         mPasswordView = (EditText) findViewById(R.id.password);
         mPasswordView.setOnEditorActionListener(new TextView.OnEditorActionListener() {
             @Override
@@ -175,9 +178,7 @@ public class SignUp extends ActionBarActivity {
     }
 
     public void attemptSignUp(){
-        //TODO
-        //TODO remove this login system which does not check for credentials
-        // Reset errors.
+        //Reset errors.
         mEmailView.setError(null);
         mPasswordView.setError(null);
         mFirstNameView.setError(null);
@@ -248,6 +249,15 @@ public class SignUp extends ActionBarActivity {
         }
     }
 
+    /**
+     * method by Ankit, Lisa, Raymond, Patrick, Tiayan
+     * @param email
+     * @param password
+     * @param first
+     * @param last
+     * @param doctorIdStr
+     * @param symptoms
+     */
     private void registerNewUser(String email, String password, String first, String last, String doctorIdStr, String symptoms) {
         //format name
         first = first.substring(0,1).toUpperCase() + first.substring(1,first.length());
@@ -283,39 +293,6 @@ public class SignUp extends ActionBarActivity {
             int id = service.size()+1;
             user.put("DoctorID", Integer.toString(id));
             user.saveInBackground();
-            /*
-            ParseObject serviceUser = service.get(0);
-            String load = serviceUser.getString("DoctorID");
-            Toast.makeText(getBaseContext(),
-                    ("" + load),
-                    Toast.LENGTH_SHORT).show();
-            serviceUser.put("DoctorID","cat");
-            serviceUser.saveInBackground();
-            load = serviceUser.getString("DoctorID");
-            Toast.makeText(getBaseContext(),
-                    ("" + load),
-                    Toast.LENGTH_SHORT).show();*/
-/*
-            query.getInBackground("l6pq5FxjcF", new GetCallback<ParseObject>() {
-                public void done(ParseObject object, ParseException e) {
-                    if (e == null) {
-                        final int toLoad = Integer.parseInt(object.getString("DoctorID"));
-                        load = toLoad;
-                        object.put("DoctorID", Integer.toString((Integer.parseInt(object.getString("DoctorID") + 1))));
-                        object.put("DoctorID", "mouse");
-                        object.saveInBackground();
-                        Toast.makeText(getBaseContext(),
-                                ("" + load),
-                                Toast.LENGTH_SHORT).show();
-                    } else {
-                        // something went wrong
-                    }
-                }
-            });
-            user.put("DoctorID", Integer.toString(load));
-            user.saveInBackground();*/
-
-
         }
         else
         {

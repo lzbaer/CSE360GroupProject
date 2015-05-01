@@ -10,6 +10,10 @@ import android.widget.Toast;
 
 import com.parse.*;
 
+/**
+ * class handles login, this is home class
+ * created by Patrick, Ankit
+ */
 public class MainActivity extends ActionBarActivity {
 
 
@@ -30,7 +34,9 @@ public class MainActivity extends ActionBarActivity {
 
         ParseACL.setDefaultACL(defaultACL, true);
 
-        ParseUser.logOut(); // So the user is logged out every time
+        //log user out every time activity starts
+        //if user reopens app, user is loggeed out
+        ParseUser.logOut();
 
 
     }
@@ -52,7 +58,7 @@ public class MainActivity extends ActionBarActivity {
         // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
 
-        //noinspection SimplifiableIfStatement
+        //set up logout button using action bar
         if (id == R.id.action_logout) {
             if(ParseUser.getCurrentUser()!=null){
                 ParseUser.logOut();
@@ -69,6 +75,7 @@ public class MainActivity extends ActionBarActivity {
         return super.onOptionsItemSelected(item);
     }
 
+    //called from XML generated objects
     public void startLogin(View view)
     {
         //if no user is currently logged in
@@ -82,6 +89,7 @@ public class MainActivity extends ActionBarActivity {
         }
     }
 
+    //called from XML generated objects
     public void startSignUp(View view)
     {
         //if no user is currently logged in
@@ -97,8 +105,6 @@ public class MainActivity extends ActionBarActivity {
 
     private void startUserSplashPage()
     {
-        System.out.println("MainActivity.startUserSplashPage");
-
         Intent intent = null;
 
         ParseUser currentUser = ParseUser.getCurrentUser();
@@ -112,11 +118,5 @@ public class MainActivity extends ActionBarActivity {
 
         startActivity(intent);
     }
-
-    private boolean isUserDoctor(String userId) {
-        //TODO check if user is patient or doctor
-        return false;
-    }
-
 
 }

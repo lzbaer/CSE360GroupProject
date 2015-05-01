@@ -18,6 +18,13 @@ import android.widget.Toast;
 
 import com.parse.ParseUser;
 
+/**
+ * patients use this class
+ * class allows known condition entry
+ * update doctor id
+ * view info
+ * created by Patrick, Raymond
+ */
 
 public class PatientEditInfoPage extends ActionBarActivity {
 
@@ -83,12 +90,18 @@ public class PatientEditInfoPage extends ActionBarActivity {
 
     private void attemptUpdate() {
 
+        //pull values from GUI fields
         String doctorId = mDoctorIdView.getText().toString();
         int conditionPosition = mConditionSpinner.getSelectedItemPosition();
+
+        //set user
         ParseUser currentUser = ParseUser.getCurrentUser();
-        //check for a valid doctorID
+
+        //create focus view and cancel for highlighting errors
         View focusView = null;
         boolean cancel = false;
+
+        //check valid DoctorId
         if (doctorId.length() == 0) {
             mDoctorIdView.setError(getString(R.string.error_field_required));
             focusView = mDoctorIdView;
@@ -99,6 +112,7 @@ public class PatientEditInfoPage extends ActionBarActivity {
             // form field with an error.
             focusView.requestFocus();
         } else {
+            //update info
             currentUser.put("DoctorID",doctorId);
             currentUser.put("CurrentIllness",conditionPosition);
             currentUser.saveInBackground();
@@ -109,7 +123,6 @@ public class PatientEditInfoPage extends ActionBarActivity {
             finish();
         }
     }
-
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
